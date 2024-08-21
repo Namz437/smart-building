@@ -212,11 +212,11 @@ class DeviceController extends Controller
             }
 
 
-             // Pengecekan Device
-             $device = Device::find($id);
-             if (!$device) {
-                 return response()->json(['message' => 'Device tidak ditemukan'], 404);
-             }
+            // Pengecekan Device
+            $device = Device::find($id);
+            if (!$device) {
+                return response()->json(['message' => 'Device tidak ditemukan'], 404);
+            }
 
             // Pengecekan Akses
             $akses = AksesRoles::whereIn('roles_id', $setting_roles)
@@ -447,11 +447,11 @@ class DeviceController extends Controller
             }
 
 
-             // Pengecekan Device
-             $device = Device::where('mac_address', $request->mac_address)->first();
-             if (!$device) {
-                 return response()->json(['message' => 'Device tidak ditemukan'], 404);
-             }
+            // Pengecekan Device
+            $device = Device::where('mac_address', $request->mac_address)->first();
+            if (!$device) {
+                return response()->json(['message' => 'Device tidak ditemukan'], 404);
+            }
 
             // Pengecekan Akses
             $akses = AksesRoles::whereIn('roles_id', $setting_roles)
@@ -465,7 +465,7 @@ class DeviceController extends Controller
                 ], 403);
             }
             // Temukan device berdasarkan id
-          
+
 
             $index = 0;
             if ($device->qr_code == 0) {
@@ -651,9 +651,7 @@ class DeviceController extends Controller
         }
     }
 
-    public function destroy($id)
-    {
-    }
+    public function destroy($id) {}
 
     public function get_status_ac()
     {

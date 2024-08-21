@@ -64,8 +64,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('setting_kode_kontrol/{mac_address}/current_kode', [SettingKodeKontrolController::class, 'cek_current_kode']);
     Route::post('setting_kode_kontrol', [SettingKodeKontrolController::class, 'store']);
     Route::get('setting_kode_kontrol/{device_id}', [SettingKodeKontrolController::class, 'show']);
-
-    
 });
 
 Route::group(['middleware' => 'auth:sanctum', 'isAdmin', 'prefix' => 'admin'], function () {

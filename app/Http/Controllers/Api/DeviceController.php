@@ -668,4 +668,21 @@ class DeviceController extends Controller
         // Jika perangkat tidak ditemukan, kembalikan pesan error
         return response()->json(['message' => 'kode tidak ditemukan'], 404);
     }
+
+    public function logindevice(Request $macAddress)
+    {
+        try {
+            $device = Device::where('mac_address', $macAddress->mac_address)->first();
+
+            $token = $device->createToken('auth_token')->plainTextToken;
+            $response =  $token;
+            return response()->json($response, 200);
+        } catch (Exception $e) {
+            $response = [
+                'success' => false,
+                'message' => 'Data Mac Address tidak tersedia',
+            ];
+            return response()->json($response, 500);
+        }
+    }
 }

@@ -2,8 +2,6 @@
 
 <!-- BEGIN: Body-->
 
-
-
 <!-- BEGIN: Header-->
 @include('layouts.header')
 <!-- END: Header-->

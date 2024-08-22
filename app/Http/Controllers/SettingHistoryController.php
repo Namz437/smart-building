@@ -15,7 +15,11 @@ class SettingHistoryController extends Controller
      */
     public function index()
     {
-        $historys = History::with('users', 'device')->get();
+        // Buat ngambil 50 data baru
+        $historys = History::with('users', 'device')
+            ->orderBy('created_at', 'desc') // ngurutin data create masuknya, dengan descending
+            ->limit(50) // di limitkan 50 data history
+            ->get();
         $users = User::all();
         $device = Device::all();
 
@@ -23,12 +27,11 @@ class SettingHistoryController extends Controller
     }
 
 
+
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-    }
+    public function store(Request $request) {}
 
     /**
      * Display the specified resource.

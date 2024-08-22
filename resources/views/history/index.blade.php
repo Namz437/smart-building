@@ -39,12 +39,16 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>User ID</th>
+                                    <th>User ID</th> 
+                                    {{-- User Id biarin --}}
                                     <th>Device</th>
+                                    {{-- Ganti nama device --}}
                                     <th>Status</th>
-                                    <th>Waktu</th>
-                                    <th>Harga</th>
+                                    {{-- Biarin --}}
                                     <th>Deskripsi</th>
+                                    {{-- Biarin --}}
+
+                                    {{-- Datanya tampilin 50 aja yang terbaru descending, yang terbaru paling atas --}}
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,10 +57,8 @@
                                         <td>
                                             {{ $data->users_id }}
                                         </td>
-                                        <td>{{ $data->device_id }}</td>
+                                        <td>{{ $data->device->nama_device }}</td>
                                         <td>{{ $data->status }}</td>
-                                        <td>{{ $data->waktu }}</td>
-                                        <td>{{ $data->harga }}</td>
                                         <td>{{ $data->deskripsi }}</td>
                                     </tr>
                                 @endforeach

@@ -101,6 +101,14 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
                   <h2 class="card-title fw-bold mb-1">Welcome to Smart Building! 👋</h2>
                   <p class="card-text mb-2">Silahkan login ke akun admin smart building</p>
+
+                  <!-- Display Error Alert -->
+                  @if(session('error'))
+                  <div class="alert alert-danger">
+                      {{ session('error') }}
+                  </div>
+                  @endif
+
                   <form class="auth-login-form mt-2" action="index.html" method="POST">
                     <div class="mb-1">
                       <label class="form-label" for="email">Email :</label>
@@ -160,6 +168,18 @@ License: You must have a valid license purchased only from themeforest(the above
         }
       })
     </script>
+
+      <script>
+    // Buat ngilangin alert aja
+    setTimeout(function() {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+        });
+    }, 8000); //waktu ilangnya
+</script>
+
   </body>
   <!-- END: Body-->
 </html>

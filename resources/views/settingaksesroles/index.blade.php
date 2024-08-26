@@ -34,10 +34,10 @@
         <div class="row" id="table-bordered">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
+                    {{-- <div class="card-header">
                         <a class="btn btn-primary" href="{{ route('settingaksesroles.create') }}">Tambah Data Akses
                             Roles +</a>
-                    </div>
+                    </div> --}}
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -51,7 +51,7 @@
                                 @foreach ($akses_roles as $data)
                                     <tr>
                                         <td>
-                                            {{ $data->roles_id }}
+                                            {{ $data->roles->nama_role }}
                                         </td>
                                         <td>{{ $data->ruangan_id }}</td>
                                         <td>
@@ -61,7 +61,14 @@
                                                     data-bs-toggle="dropdown">
                                                     <i data-feather="more-vertical"></i>
                                                 </button>
-                                                {{-- Edit dan Delete --}}
+                                                {{-- Tambah Edit dan Delete --}}
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <a class="dropdown-item"
+                                                        href="{{ route('settingaksesroles.create', $data->id) }}">
+                                                        <i data-feather="plus" class="me-50"></i>
+                                                        <span>Tambah</span>
+                                                    </a>
+
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <a class="dropdown-item"
                                                         href="{{ route('settingaksesroles.edit', $data->id) }}">
@@ -71,8 +78,8 @@
 
                                                     <a class="dropdown-item" href="#"
                                                         onclick="event.preventDefault(); 
-                               if(confirm('Apakah Anda yakin ingin menghapus akses roles ini?')) 
-                               document.getElementById('delete-form-{{ $data->id }}').submit();">
+                                                        if(confirm('Apakah Anda yakin ingin menghapus akses roles ini?')) 
+                                                        document.getElementById('delete-form-{{ $data->id }}').submit();">
                                                         <i data-feather="trash" class="me-50"></i>
                                                         <span>Delete</span>
                                                     </a>

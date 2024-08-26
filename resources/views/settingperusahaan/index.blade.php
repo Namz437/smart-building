@@ -60,7 +60,7 @@
                                         <td>{{ $data->lokasi }}</td>
                                         <td>
                                             @if ($data->image)
-                                                <img src="{{ asset('storage/' . $data->image) }}" alt="Image"
+                                                <img src="{{ asset('images/perusahaan/' . $data->image) }}" alt="Image"
                                                     width="140" class="img-thumbnail">
                                             @else
                                                 <span class="text-muted">No Image</span>

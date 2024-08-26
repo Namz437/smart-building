@@ -44,6 +44,13 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="no_id">No_ID</label>
+                                                <input type="text" class="form-control" id="no_id" name="no_id"
+                                                    value="{{ $users->no_id }}">
+                                            </div>
+                                        </div>
 
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <div class="mb-1">

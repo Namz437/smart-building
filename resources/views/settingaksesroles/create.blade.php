@@ -48,18 +48,25 @@
                                             <label class="form-label" for="roles_id">Roles</label>
                                             <select class="form-select" id="roles_id" name="roles_id">
                                                 @foreach ($roles as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->nama_role }}</option>
+                                                    <option value="{{ $role->id }}" 
+                                                        @if(old('roles_id') == $role->id || $loop->first) 
+                                                            selected 
+                                                        @endif>
+                                                        {{ $role->nama_role }}
+                                                    </option>
                                                 @endforeach
                                             </select>
                                         </div>
 
-                                        <div class="col-xl-4 col-md-6 col-12">
-                                            <label class="form-label" for="ruangan_id">Ruangan</label>
-                                            <select class="form-select" id="ruangan_id" name="ruangan_id">
+                                        <!-- Multiple -->
+                                        <div class="col-md-6 mb-1">
+                                            <label class="form-label" for="ruangan_id">Pintu Akses Ruangan</label>
+                                            <select class="select2 form-select" id="ruangan_id" name="ruangan_id[]" multiple>
+                                            <optgroup label="Akses ke Pintu">
                                                 @foreach ($ruangans as $ruangan)
-                                                    <option value="{{ $ruangan->id }}">{{ $ruangan->nama_ruangan }}
-                                                    </option>
+                                                    <option value="{{ $ruangan->id }}">{{ $ruangan->nama_ruangan }}</option>
                                                 @endforeach
+                                            </optgroup>
                                             </select>
                                         </div>
 

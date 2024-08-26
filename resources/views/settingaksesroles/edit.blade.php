@@ -50,20 +50,40 @@
                                             <label class="form-label" for="roles_id">Roles</label>
                                             <select class="form-select" id="roles_id" name="roles_id">
                                                 @foreach ($roles as $role)
-                                                    <option value="{{ $role->id }}">{{ $role->nama_role }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-
-                                        <div class="col-xl-4 col-md-6 col-12">
-                                            <label class="form-label" for="ruangan_id">Ruangan</label>
-                                            <select class="form-select" id="ruangan_id" name="ruangan_id">
-                                                @foreach ($ruangans as $ruangan)
-                                                    <option value="{{ $ruangan->id }}">{{ $ruangan->nama_ruangan }}
+                                                    <option value="{{ $role->id }}" 
+                                                        @if($role->id == $akses_roles->roles_id) 
+                                                            selected 
+                                                        @endif>
+                                                        {{ $role->nama_role }}
                                                     </option>
                                                 @endforeach
                                             </select>
                                         </div>
+
+                                        {{-- <div class="col-xl-4 col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="ruangan_id">Pintu Akses Ruangan</label>
+                                                <input type="text" class="form-control" id="ruangan_id"
+                                                    name="ruangan_id" value="{{ $akses_roles->ruangan_id }}" required>
+                                            </div>
+                                        </div> --}}
+
+                                        <div class="col-md-6 mb-1">
+                                            <label class="form-label" for="ruangan_id">Pintu Akses Ruangan</label>
+                                            <select class="select2 form-select" id="ruangan_id" name="ruangan_id[]" multiple>
+                                                <optgroup label="Akses ke Pintu">
+                                                    @foreach ($ruangans as $ruangan)
+                                                        <option value="{{ $ruangan->id }}" 
+                                                            @if(in_array($ruangan->id, explode(',', trim($akses_roles->ruangan_id, '{}'))))
+                                                                selected
+                                                            @endif>
+                                                            {{ $ruangan->nama_ruangan }}
+                                                        </option>
+                                                    @endforeach
+                                                </optgroup>
+                                            </select>
+                                        </div>
+
 
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <a href="{{ route('settingaksesroles.index') }}"

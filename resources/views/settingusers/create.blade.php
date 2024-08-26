@@ -45,6 +45,14 @@
                                     <div class="row">
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <div class="mb-1">
+                                                <label class="form-label" for="no_id">No_ID</label>
+                                                <input type="text" class="form-control" id="no_id" name="no_id"
+                                                    placeholder="Nomor ID">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <div class="mb-1">
                                                 <label class="form-label" for="name">Nama</label>
                                                 <input type="text" class="form-control" id="name" name="name"
                                                     placeholder="Nama Users">

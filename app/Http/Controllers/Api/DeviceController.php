@@ -593,7 +593,7 @@ class DeviceController extends Controller
 
         if (!$akses) {
             return response()->json([
-                'message' => 'Akses tidak diterima',
+                'message' => 'Akses Ditolak',
                 // 'akses_data' => 'Tidak ada akses yang ditemukan untuk ruangan ini'
             ], 403);
         }

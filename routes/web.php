@@ -57,5 +57,10 @@ Route::group(['middleware' => 'auth:sanctum', 'admin'], function () {
     Route::resource('/settingkodekontrol', ControllersSettingKodeKontrolController::class);
     Route::resource('/settingrfid', SettingRfidController::class);
     Route::resource('/history', SettingHistoryController::class);
-    // End Route Device Management
+
+    // Buat Reset Password User
+    Route::get('/settingusers/{id}/resetpassword', [SettingUserController::class, 'resetPassword'])->name('settingusers.resetpassword');
+    Route::put('/settingusers/{id}/updatepassword', [SettingUserController::class, 'updatePassword'])->name('settingusers.updatepassword');
+    // End Buat Reset Password User
+
 });

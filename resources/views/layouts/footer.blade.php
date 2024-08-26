@@ -28,6 +28,7 @@
  <script src="{{ asset('app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
  <script src="{{ asset('app-assets/vendors/js/forms/cleave/cleave.min.js') }}"></script>
  <script src="{{ asset('app-assets/vendors/js/forms/cleave/addons/cleave-phone.us.js') }}"></script>
+ <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
  <!-- END: Page Vendor JS-->
 
  <!-- BEGIN: Theme JS-->
@@ -38,6 +39,8 @@
 
  <!-- BEGIN: Page JS-->
  <script src="{{ asset('app-assets/js/scripts/pages/app-user-list.min.js') }}"></script>
+ <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
+
  <!-- END: Page JS-->
 
  {{-- Script --}}
@@ -52,3 +55,15 @@
      })
  </script>
  {{-- End Script --}}
+
+ {{-- untuk alert --}}
+ <script>
+    // Buat ngilangin alert aja
+    setTimeout(function() {
+        let alerts = document.querySelectorAll('.alert');
+        alerts.forEach(function(alert) {
+            alert.classList.remove('show');
+            alert.classList.add('fade');
+        });
+    }, 10000); //waktu ilangnya
+</script>

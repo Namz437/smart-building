@@ -29,6 +29,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
      <!-- BEGIN: Vendor CSS-->
      <link rel="stylesheet" type="text/css" href="{{asset('app-assets/vendors/css/vendors.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css') }}">
+
      <!-- END: Vendor CSS-->
  
      <!-- BEGIN: Theme CSS-->
@@ -47,6 +49,7 @@ License: You must have a valid license purchased only from themeforest(the above
      <!-- BEGIN: Custom CSS-->
      <link rel="stylesheet" type="text/css" href="{{asset('assets/css/style.css')}}">
      <!-- END: Custom CSS-->
+
  
   </head>
   <!-- END: Head-->

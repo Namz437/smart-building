@@ -44,20 +44,26 @@ class SettingPerusahaanController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        $file = $request->file('image');
+        $tujuan_upload = "images/perusahaan";
+        // $url = null; // Default value in case no image is uploaded
     
-        $url = null; // Default value in case no image is uploaded
-    
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $path = $file->store('images', 'public');
-            $url = Storage::url($path); // Correctly generate the URL
-        }
-    
+        // if ($request->hasFile('image')) {
+        //     $file = $request->file('image');
+        //     $path = $file->store('images', 'public');
+        //     $url = Storage::url($path); // Correctly generate the URL
+        // }
+
+        $namafile = time()."_".$file->getClientOriginalName();
+        $namafile = str_replace(" ", "_", $namafile);
+
+        $file->move($tujuan_upload, $namafile);
         $data = Perusahaan::create([
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
             'lokasi' => $request->lokasi,
-            'image' => $url,
+            'image' => $namafile,
             'kwh' => $request->kwh,
             'harga_kwh' => $request->harga_kwh,
         ]);
@@ -104,18 +110,26 @@ class SettingPerusahaanController extends Controller
             return redirect()->route('settingperusahaan.index')->withErrors($validator)->withInput();
         }
 
-        // Handle image upload
-        if ($request->hasFile('image')) {
-            // Delete old image if exists
-            if ($perusahaans->image) {
-                Storage::disk('public')->delete($perusahaans->image);
-            }
+        // // Handle image upload
+        // if ($request->hasFile('image')) {
+        //     // Delete old image if exists
+        //     if ($perusahaans->image) {
+        //         Storage::disk('public')->delete($perusahaans->image);
+        //     }
 
-            // Store the new image
-            $file = $request->file('image');
-            $path = $file->store('images', 'public');
-            $perusahaans->image = $path;
-        }
+        //     // Store the new image
+        //     $file = $request->file('image');
+        //     $path = $file->store('images', 'public');
+        //     $perusahaans->image = $path;
+        // }
+
+        $file = $request->file('image');
+        $tujuan_upload = "images/perusahaan";
+
+        $namafile = time()."_".$file->getClientOriginalName();
+        $namafile = str_replace(" ", "_", $namafile);
+
+        $file->move($tujuan_upload, $namafile);
 
         // Update other fields
         $perusahaans->nama = $request->nama;
@@ -123,6 +137,7 @@ class SettingPerusahaanController extends Controller
         $perusahaans->lokasi = $request->lokasi;
         $perusahaans->kwh = $request->kwh;
         $perusahaans->harga_kwh = $request->harga_kwh;
+        $perusahaans->image = $namafile;
 
         // Save the updated model
         $perusahaans->save();

@@ -32,6 +32,20 @@
         </div>
 
         <!-- Bordered table start -->
+          {{-- Buat Alert aja --}}
+     @if(session('success'))
+     <div class="alert alert-success">
+         {{ session('success') }}
+     </div>
+ @endif
+ 
+ @if(session('error'))
+     <div class="alert alert-danger">
+         {{ session('error') }}
+     </div>
+ @endif
+ {{-- End Alert --}}
+ 
         <div class="row" id="table-bordered">
             <div class="col-12">
                 <div class="card">
@@ -42,6 +56,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
+                                    <th>No_ID</th>
                                     <th>Nama User</th>
                                     <th>Email</th>
                                     <th>Actions</th>
@@ -50,6 +65,7 @@
                             <tbody>
                                 @foreach ($users as $data)
                                     <tr>
+                                        <td>{{ $data->no_id }}</td>
                                         <td>
                                             {{ $data->name }}
                                         </td>
@@ -72,8 +88,8 @@
 
                                                     <a class="dropdown-item" href="#"
                                                         onclick="event.preventDefault(); 
-                               if(confirm('Apakah Anda yakin ingin menghapus user ini?')) 
-                               document.getElementById('delete-form-{{ $data->id }}').submit();">
+                                                        if(confirm('Apakah Anda yakin ingin menghapus user ini?')) 
+                                                        document.getElementById('delete-form-{{ $data->id }}').submit();">
                                                         <i data-feather="trash" class="me-50"></i>
                                                         <span>Delete</span>
                                                     </a>
@@ -84,6 +100,15 @@
                                                         @csrf
                                                         @method('delete')
                                                     </form>
+
+                                                    {{-- Cek PW --}}
+                                                    <a class="dropdown-item"
+                                                    href="{{ route('settingusers.resetpassword', $data->id) }}"
+                                                    onclick="return confirm('Apakah Anda yakin ingin reset password user ini?');">
+                                                    <i data-feather="lock" class="me-50"></i>
+                                                    <span>Reset Password</span>
+                                                    </a>
+                                                    {{-- Cek PW --}}
 
                                                     {{-- End Edit dan Delete --}}
 

@@ -112,7 +112,7 @@ License: You must have a valid license purchased only from themeforest(the above
                   <form class="auth-login-form mt-2" action="index.html" method="POST">
                     <div class="mb-1">
                       <label class="form-label" for="email">Email :</label>
-                      <input class="form-control" id="email" type="text" name="email" placeholder="admin@blabla.com" aria-describedby="email" autofocus="" tabindex="1">
+                      <input class="form-control" id="email" type="text" name="email" placeholder="admin@blabla.com" aria-describedby="email" autofocus="" tabindex="1" value="{{ old('email', Cookie::get('email')) }}">
                     </div>
                     <div class="mb-1">
                       <div class="d-flex justify-content-between">
@@ -122,12 +122,15 @@ License: You must have a valid license purchased only from themeforest(the above
                         <input class="form-control form-control-merge" id="password" type="password" name="password" placeholder="············" aria-describedby="password" tabindex="2"><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                       </div>
                     </div>
+
                     <div class="mb-1">
                       <div class="form-check">
-                        <input class="form-check-input" id="remember-me" type="checkbox" tabindex="3">
-                        <label class="form-check-label" for="remember-me"> Remember Me</label>
+                          <input class="form-check-input" id="remember-me" type="checkbox" name="remember" tabindex="3"
+                          {{ old('remember') ? 'checked' : '' }}>
+                          <label class="form-check-label" for="remember-me"> Remember Me</label>
                       </div>
-                    </div>
+                  </div>
+                    
                     <button type="submit" class="btn btn-primary w-100" tabindex="4">Log in</button>
                   </form>
                   <p class="text-center mt-2"><span>Silahkan Login</span></p>

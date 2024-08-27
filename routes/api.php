@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('change_password', [AuthController::class, 'change_password']);
+    // Route::post('change_password', [AuthController::class, 'change_password']);
     Route::post('device/updateSuhu', [DeviceController::class, 'updateSuhu']);
     Route::get('device/{id}', [DeviceController::class, 'show']);
     Route::post('device/{id}/status', [DeviceController::class, 'updateStatus']);
@@ -93,5 +93,10 @@ Route::group(['middleware' => 'auth:sanctum', 'isAdmin', 'prefix' => 'admin'], f
 
 //test
 Route::get('status_ac', [DeviceController::class, 'get_status_ac']);
-
+// Login device
 Route::post('logindevice/{mac_address}', [DeviceController::class, 'logindevice']);
+
+// Untuk reset password by id
+Route::post('/user/reset-password/{id}', [UsersController::class, 'resetPassword']);
+// Untuk change password by id
+Route::post('users/{id}/change_password', [AuthController::class, 'changePasswordById']);

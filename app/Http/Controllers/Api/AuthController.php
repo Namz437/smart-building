@@ -8,6 +8,7 @@ use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -98,24 +99,34 @@ class AuthController extends Controller
 
 
     public function prosesLogin(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        $user = User::where('email', $request->email)->first();
-        if (empty($user)) {
-            return redirect()->back()->with('error', 'Email tidak ditemukan');
+    $user = User::where('email', $request->email)->first();
+    if (empty($user)) {
+        return redirect()->back()->with('error', 'Email tidak ditemukan');
+    } else {
+        if (!Hash::check($request->password, $user->password)) {
+            return redirect()->back()->with('error', 'Password salah');
         } else {
-            if (!Hash::check($request->password, $user->password)) {
-                return redirect()->back()->with('error', 'Password salah');
+            $remember = $request->has('remember');
+
+            if ($remember) {
+                // email kesimpen kalo remeber di centang
+                Cookie::queue('email', $request->email, 43200); 
             } else {
-                Auth::login($user);
-                return redirect()->route('dashboard');
+                // ini kalo ga di centang
+                Cookie::queue(Cookie::forget('email'));
             }
+
+            Auth::login($user, $remember);
+            return redirect()->route('dashboard');
         }
     }
+}
 
     public function logout(Request $request)
     {
@@ -131,39 +142,47 @@ class AuthController extends Controller
         }
     }
 
-    public function change_password(Request $request)
+    public function changePasswordById(Request $request, $id)
     {
-        if (!(Hash::check($request->get('current_password'), Auth::user()->password))) {
-            // The passwords matches
+        $user = User::find($id);
+    
+        if (!$user) {
             return response()->json([
                 'success' => false,
-                'message' => 'Your current password does not matches with the password.', 401
-            ]);
+                'message' => 'User not found.',
+            ], 404);
         }
-
-        if (strcmp($request->get('current_password'), $request->get('new_password')) == 0) {
+    
+        if (!(Hash::check($request->get('current_password'), $user->password))) {
             return response()->json([
                 'success' => false,
-                'message' => 'New Password cannot be same as your current password.', 401
-            ]);
+                'message' => 'Your current password does not match our records.',
+            ], 401);
         }
+    
+        if ($request->get('current_password') === $request->get('new_password')) {
+            return response()->json([
+                'success' => false,
+                'message' => 'New Password cannot be the same as your current password.',
+            ], 400);
+        }
+    
         $validator = Validator::make($request->all(), [
             'current_password' => 'required|string|min:8',
             'new_password' => 'required|string|min:8',
         ]);
-
+    
         if ($validator->fails()) {
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(), 400);
         }
-
-        $user = Auth::user();
+    
         $user->password = bcrypt($request->new_password);
         $user->save();
-
-        return response()
-            ->json([
-                'success' => true,
-                'message' => 'Password has been changed, Thank You.',
-            ]);
+    
+        return response()->json([
+            'success' => true,
+            'message' => 'Password has been changed successfully.',
+        ]);
     }
+    
 }

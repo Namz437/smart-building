@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 
 class UsersController extends Controller
@@ -55,4 +56,30 @@ class UsersController extends Controller
     {
         //
     }
+
+    public function resetPassword(Request $request, $id)
+{
+    $user = User::find($id);
+
+    if (!$user) {
+        return response()->json(['error' => 'User tidak ditemukan'], 404);
+    }
+
+    // Generate a random password
+    $newPassword = Str::random(12);
+
+    // Reset password to the generated random value
+    $user->password = bcrypt($newPassword);
+    $user->save();
+
+    return response()->json([
+        'success' => true,
+        'message' => 'Password berhasil direset',
+        'user' => [
+            'name' => $user->name,
+            'email' => $user->email,
+            'new_password' => $newPassword
+        ]
+    ], 200);
+}
 }

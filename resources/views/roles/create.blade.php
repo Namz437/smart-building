@@ -41,15 +41,18 @@
                                 <div class="card-header">
                                     <h4 class="card-title">Form Tambah Data Roles</h4>
                                 </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-xl-4 col-md-6 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label" for="nama_role">Nama Roles</label>
-                                                <input type="text" class="form-control" id="nama_role"
-                                                    name="nama_role" placeholder="Nama Roles">
-                                            </div>
-                                        </div>
+
+                    <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-4 col-md-6 col-12">
+                    <div class="mb-1">
+                        <label class="form-label" for="nama_role">Nama Roles</label>
+                        <input type="text" class="form-control" id="nama_role" name="nama_role" placeholder="Nama Roles">
+                    </div>
+                </div>
+
+                                        <!-- Kolom untuk memasukkan Ruangan ID secara default -->
+                                        <input type="hidden" name="ruangan_id" value=""> <!-- supaya ruangan kosong di akses_roles (logika ada di settingrole store) -->
 
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <a href="{{ route('roles.index') }}" class="btn btn-secondary mt-2">Back</a>

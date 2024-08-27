@@ -62,12 +62,13 @@
                                                     <i data-feather="more-vertical"></i>
                                                 </button>
                                                 {{-- Tambah Edit dan Delete --}}
-                                                <div class="dropdown-menu dropdown-menu-end">
+                                                
+                                                {{-- <div class="dropdown-menu dropdown-menu-end">
                                                     <a class="dropdown-item"
                                                         href="{{ route('settingaksesroles.create', $data->id) }}">
                                                         <i data-feather="plus" class="me-50"></i>
                                                         <span>Tambah</span>
-                                                    </a>
+                                                    </a> --}} 
 
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <a class="dropdown-item"

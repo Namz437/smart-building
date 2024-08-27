@@ -32,20 +32,20 @@
         </div>
 
         <!-- Bordered table start -->
-          {{-- Buat Alert aja --}}
-     @if(session('success'))
-     <div class="alert alert-success">
-         {{ session('success') }}
-     </div>
- @endif
- 
- @if(session('error'))
-     <div class="alert alert-danger">
-         {{ session('error') }}
-     </div>
- @endif
- {{-- End Alert --}}
- 
+        {{-- Buat Alert aja --}}
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        {{-- End Alert --}}
+
         <div class="row" id="table-bordered">
             <div class="col-12">
                 <div class="card">
@@ -59,6 +59,7 @@
                                     <th>No_ID</th>
                                     <th>Nama User</th>
                                     <th>Email</th>
+                                    <th>Roles</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -70,6 +71,7 @@
                                             {{ $data->name }}
                                         </td>
                                         <td>{{ $data->email }}</td>
+                                        <td>{{ $data->roles->nama_role }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button"
@@ -103,10 +105,10 @@
 
                                                     {{-- Cek PW --}}
                                                     <a class="dropdown-item"
-                                                    href="{{ route('settingusers.resetpassword', $data->id) }}"
-                                                    onclick="return confirm('Apakah Anda yakin ingin reset password user ini?');">
-                                                    <i data-feather="lock" class="me-50"></i>
-                                                    <span>Reset Password</span>
+                                                        href="{{ route('settingusers.resetpassword', $data->id) }}"
+                                                        onclick="return confirm('Apakah Anda yakin ingin reset password user ini?');">
+                                                        <i data-feather="lock" class="me-50"></i>
+                                                        <span>Reset Password</span>
                                                     </a>
                                                     {{-- Cek PW --}}
 

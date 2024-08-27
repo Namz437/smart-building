@@ -69,7 +69,7 @@
             <li class="nav-item" id="company-management-menu">
                 <a class="d-flex align-items-center" href="#" onclick="setActive('company-management-menu')">
                     <i data-feather="briefcase"></i>
-                    <span class="menu-title text-truncate" data-i18n="Invoice">COMP Management</span>
+                    <span class="menu-title text-truncate" data-i18n="Invoice">Comp Management</span>
                 </a>
                 <ul class="menu-content">
                     <li id="perusahaan-menu">
@@ -125,20 +125,20 @@
                             <span class="menu-item text-truncate" data-i18n="Preview">Roles</span>
                         </a>
                     </li>
-                    <li id="setting-roles-menu">
+                    {{-- <li id="setting-roles-menu">
                         <a class="d-flex align-items-center" href="{{ url('settingroles') }}"
                             onclick="setActive('setting-roles-menu')">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Edit">Setting Roles</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li id="akses-roles-menu">
                         <a class="d-flex align-items-center" href="{{ url('settingaksesroles') }}"
                             onclick="setActive('akses-roles-menu')">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Add">Akses Roles</span>
                         </a>
-                    </li>  
+                    </li>
                 </ul>
             </li>
             <!-- End Users -->
@@ -224,10 +224,10 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-         // Ambil item yang aktif ke local storage, kalo ada
+        // Ambil item yang aktif ke local storage, kalo ada
         const activeMenuId = localStorage.getItem('activeMenu');
 
-         // Pastikan item menu yang sesuai yang dikasih kelas 'active'
+        // Pastikan item menu yang sesuai yang dikasih kelas 'active'
         if (activeMenuId) {
             const activeMenuElement = document.getElementById(activeMenuId);
             if (activeMenuElement) {
@@ -235,33 +235,32 @@
             }
         }
 
-         // Tambahin kelas 'active' ke menu yang ada di kelas nya contohnya aja itu 'nav-item'
+        // Tambahin kelas 'active' ke menu yang ada di kelas nya contohnya aja itu 'nav-item'
         const currentUrl = window.location.pathname;
         document.querySelectorAll('.nav-item a').forEach(link => {
             if (link.getAttribute('href') === currentUrl) {
                 link.parentElement.classList.add('active');
-                 // Simpan di localStorage jika rute berubah
+                // Simpan di localStorage jika rute berubah
                 localStorage.setItem('activeMenu', link.parentElement.id);
             }
         });
     });
 
     function setActive(menuId) {
-         // Hapus kelas 'active' kalo pindah halaman
+        // Hapus kelas 'active' kalo pindah halaman
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.remove('active');
         });
 
-         // Tambahin class 'active' kalo pindah halaman
+        // Tambahin class 'active' kalo pindah halaman
         const activeMenuElement = document.getElementById(menuId);
         if (activeMenuElement) {
             activeMenuElement.classList.add('active');
         }
 
-         // Simpan item yang aktif ke localStorage
+        // Simpan item yang aktif ke localStorage
         localStorage.setItem('activeMenu', menuId);
     }
-
 </script>
 
 {{-- End Javascript Untuk Sidebar Active --}}

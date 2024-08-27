@@ -11,7 +11,7 @@ class SettingUserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
+        $users = User::with('roles')->get();
         return view('settingusers.index', compact('users'));
     }
 
@@ -81,18 +81,18 @@ class SettingUserController extends Controller
     public function resetPassword($id)
     {
         $user = User::find($id);
-    
+
         if (!$user) {
             return redirect()->route('settingusers.index')->with('error', 'User tidak ditemukan');
         }
-    
+
         // Generate a random password
         $newPassword = Str::random(12); // You can adjust the length as needed
-    
+
         // Reset password to the generated random value
         $user->password = bcrypt($newPassword);
         $user->save();
-    
+
         return redirect()->route('settingusers.index')->with('success', 'Password untuk user ' . $user->name . ' berhasil direset ke "' . $newPassword . '"');
     }
 

@@ -20,7 +20,7 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Table Akses Roles</h2>
+                        <h2 class="content-header-title float-start mb-0">Table Akses Roles </h2>
                     </div>
                 </div>
             </div>
@@ -62,13 +62,13 @@
                                                     <i data-feather="more-vertical"></i>
                                                 </button>
                                                 {{-- Tambah Edit dan Delete --}}
-                                                
+
                                                 {{-- <div class="dropdown-menu dropdown-menu-end">
                                                     <a class="dropdown-item"
                                                         href="{{ route('settingaksesroles.create', $data->id) }}">
                                                         <i data-feather="plus" class="me-50"></i>
                                                         <span>Tambah</span>
-                                                    </a> --}} 
+                                                    </a> --}}
 
                                                 <div class="dropdown-menu dropdown-menu-end">
                                                     <a class="dropdown-item"

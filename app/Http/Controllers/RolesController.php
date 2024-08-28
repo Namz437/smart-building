@@ -7,7 +7,7 @@ use App\Models\Roles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class SettingRolesController extends Controller
+class RolesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,22 +35,22 @@ class SettingRolesController extends Controller
         $validator = Validator::make($request->all(), [
             'nama_role' => 'required|string|max:255|unique:roles',
         ]);
-    
+
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-    
+
         // Buat role baru
         $role = Roles::create([
             'nama_role' => $request->get('nama_role'),
         ]);
-    
+
         // Buat akses role otomatis setelah role ditambahkan dengan ruangan_id kosong
         AksesRoles::create([
             'roles_id' => $role->id,
             'ruangan_id' => '', // atau sesuai dengan format default kosong
         ]);
-    
+
         return redirect()->route('roles.index')->with('success', 'Role berhasil ditambahkan');
     }
 
@@ -59,7 +59,6 @@ class SettingRolesController extends Controller
         $roles = Roles::find($id);
         return view('roles.edit', compact('roles'));
     }
-
 
     public function update(Request $request, string $id)
     {

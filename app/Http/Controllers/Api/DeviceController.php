@@ -9,7 +9,7 @@ use App\Models\History;
 use App\Models\KodeKontrol;
 use App\Models\Perusahaan;
 use App\Models\Rfid;
-use App\Models\SettingRoles;
+// use App\Models\SettingRoles;
 use App\Models\User;
 use Carbon\Carbon;
 use Exception;
@@ -206,11 +206,10 @@ class DeviceController extends Controller
             }
 
             // Pengecekan Role
-            $setting_roles = SettingRoles::where('users_id', $user->id)->pluck('roles_id');
-            if ($setting_roles->isEmpty()) {
-                return response()->json(['message' => 'Role tidak ditemukan'], 404);
-            }
-
+            // $setting_roles = SettingRoles::where('users_id', $user->id)->pluck('roles_id');
+            // if ($setting_roles->isEmpty()) {
+            //     return response()->json(['message' => 'Role tidak ditemukan'], 404);
+            // }
 
             // Pengecekan Device
             $device = Device::find($id);
@@ -219,7 +218,7 @@ class DeviceController extends Controller
             }
 
             // Pengecekan Akses
-            $akses = AksesRoles::whereIn('roles_id', $setting_roles)
+            $akses = AksesRoles::whereIn('roles_id', $user->roles_id)
                 ->where('ruangan_id', $device->ruangan_id)
                 ->first();
 
@@ -441,11 +440,10 @@ class DeviceController extends Controller
             }
 
             // Pengecekan Role
-            $setting_roles = SettingRoles::where('users_id', $user->id)->pluck('roles_id');
-            if ($setting_roles->isEmpty()) {
-                return response()->json(['message' => 'Role tidak ditemukan'], 404);
-            }
-
+            // $setting_roles = SettingRoles::where('users_id', $user->id)->pluck('roles_id');
+            // if ($setting_roles->isEmpty()) {
+            //     return response()->json(['message' => 'Role tidak ditemukan'], 404);
+            // }
 
             // Pengecekan Device
             $device = Device::where('mac_address', $request->mac_address)->first();
@@ -454,7 +452,7 @@ class DeviceController extends Controller
             }
 
             // Pengecekan Akses
-            $akses = AksesRoles::whereIn('roles_id', $setting_roles)
+            $akses = AksesRoles::whereIn('roles_id', $user->roles_id)
                 ->where('ruangan_id', $device->ruangan_id)
                 ->first();
 
@@ -465,7 +463,6 @@ class DeviceController extends Controller
                 ], 403);
             }
             // Temukan device berdasarkan id
-
 
             $index = 0;
             if ($device->qr_code == 0) {
@@ -552,7 +549,6 @@ class DeviceController extends Controller
         return response()->json(['message' => 'Device tidak ditemukan'], 404);
     }
 
-
     public function cekRfid(Request $request)
     {
         $request->validate([
@@ -575,10 +571,10 @@ class DeviceController extends Controller
         }
 
         // Pengecekan Role
-        $setting_roles = SettingRoles::where('users_id', $user->id)->pluck('roles_id');
-        if ($setting_roles->isEmpty()) {
-            return response()->json(['message' => 'Role tidak ditemukan'], 404);
-        }
+        // $setting_roles = SettingRoles::where('users_id', $user->id)->pluck('roles_id');
+        // if ($setting_roles->isEmpty()) {
+        //     return response()->json(['message' => 'Role tidak ditemukan'], 404);
+        // }
 
         // Pengecekan Device
         $device = Device::where('mac_address', $request->mac_address)->first();
@@ -587,7 +583,7 @@ class DeviceController extends Controller
         }
 
         // Pengecekan Akses
-        $akses = AksesRoles::whereIn('roles_id', $setting_roles)
+        $akses = AksesRoles::whereIn('roles_id', $user->roles_id)
             ->where('ruangan_id', $device->ruangan_id)
             ->first();
 
@@ -651,7 +647,8 @@ class DeviceController extends Controller
         }
     }
 
-    public function destroy($id) {}
+    public function destroy($id)
+    {}
 
     public function get_status_ac()
     {
@@ -673,7 +670,7 @@ class DeviceController extends Controller
             $device = Device::where('mac_address', $macAddress->mac_address)->first();
 
             $token = $device->createToken('auth_token')->plainTextToken;
-            $response =  $token;
+            $response = $token;
             return response()->json($response, 200);
         } catch (Exception $e) {
             $response = [

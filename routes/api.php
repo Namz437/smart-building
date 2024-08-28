@@ -15,7 +15,6 @@ use App\Http\Controllers\Api\RfidController;
 use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\RuanganController;
 use App\Http\Controllers\Api\SettingKodeKontrolController;
-use App\Http\Controllers\Api\SettingRolesController;
 use App\Http\Controllers\Api\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -75,7 +74,7 @@ Route::group(['middleware' => 'auth:sanctum', 'isAdmin', 'prefix' => 'admin'], f
     Route::post('device/{id}/ruangan', [DeviceController::class, 'updateRuangan']);
     Route::get('device/{mac_address}/mac_address', [DeviceController::class, 'getMacAddress']);
 
-    Route::resource('setting_roles', SettingRolesController::class);
+    // Route::resource('setting_roles', SettingRolesController::class);
     Route::resource('perusahaan', PerusahaanController::class);
     Route::resource('gedung', GedungController::class);
     Route::resource('rfid', RfidController::class);

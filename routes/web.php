@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Setting_RolesController;
+use App\Http\Controllers\RolesController;
 use App\Http\Controllers\SettingAksesRolesController;
 use App\Http\Controllers\SettingCategoryDeviceController;
 use App\Http\Controllers\SettingDeviceController;
@@ -15,11 +15,9 @@ use App\Http\Controllers\SettingLantaiController;
 use App\Http\Controllers\SettingMerkController;
 use App\Http\Controllers\SettingPerusahaanController;
 use App\Http\Controllers\SettingRfidController;
-use App\Http\Controllers\SettingRolesController as ControllersSettingRolesController;
 use App\Http\Controllers\SettingRuanganController;
 use App\Http\Controllers\SettingUserController;
 use Illuminate\Support\Facades\Route;
-
 
 // Rute login hanya bisa diakses oleh yang (belum login)
 Route::get('/', function () {
@@ -28,9 +26,7 @@ Route::get('/', function () {
 
 Route::post('prosesLogin', [AuthController::class, 'prosesLogin'])->name('proseslogin');
 
-
 Route::get('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
-
 
 Route::group(['middleware' => 'auth:sanctum', 'admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -44,8 +40,8 @@ Route::group(['middleware' => 'auth:sanctum', 'admin'], function () {
 
     // Route Users Management
     Route::resource('/settingusers', SettingUserController::class);
-    Route::resource('/roles', ControllersSettingRolesController::class);
-    Route::resource('/settingroles', Setting_RolesController::class);
+    Route::resource('/roles', RolesController::class);
+    // Route::resource('/settingroles', RolesController::class);
     Route::resource('/settingaksesroles', SettingAksesRolesController::class);
 
     // Route Device Management

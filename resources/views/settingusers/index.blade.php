@@ -60,6 +60,8 @@
                                     <th>Nama User</th>
                                     <th>Email</th>
                                     <th>Roles</th>
+                                    <th>RFID</th>
+                                    <th>Perusahaan</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -70,8 +72,10 @@
                                         <td>
                                             {{ $data->name }}
                                         </td>
-                                        <td>{{ $data->email }}</td>
+                                        <td>{{ $data->email }}</td> 
                                         <td>{{ $data->roles->nama_role }}</td>
+                                        <td>{{ $data->rfid }}</td> 
+                                        <td>{{ $data->perusahaan_id }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button"

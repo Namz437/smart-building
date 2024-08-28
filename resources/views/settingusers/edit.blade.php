@@ -77,6 +77,18 @@
                                         </div>
 
                                         <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="roles_id">Roles</label>
+                                            <select class="form-select" id="roles_id" name="roles_id">
+                                                @foreach ($roles as $role)
+                                                    <option value="{{ $role->id }}" 
+                                                        {{ $role->id == $users->roles_id ? 'selected' : '' }}>
+                                                        {{ $role->nama_role }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-6 col-12">
                                             <a href="{{ route('settingusers.index') }}"
                                                 class="btn btn-secondary mt-2">Back</a>
                                             <button class="btn btn-primary mt-2" type="submit">Edit Data Users</button>

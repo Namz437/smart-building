@@ -53,7 +53,7 @@
                                         <td>
                                             {{ $data->nama }}
                                         </td>
-                                        <td>{{ $data->gedung_id }}</td>
+                                        <td>{{ $data->gedung->nama_gedung }}</td>
                                         <td>{{ $data->deskripsi }}</td>
                                         <td>
                                             <div class="dropdown">

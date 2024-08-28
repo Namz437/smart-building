@@ -53,9 +53,11 @@
                                 @foreach ($ruangans as $data)
                                     <tr>
                                         <td>
-                                            {{ $data->perusahaan_id }}
+                                            {{ $data->perusahaan ? $data->perusahaan->nama : '' }}
                                         </td>
-                                        <td>{{ $data->lantai_id }}</td>
+                                        <td>
+                                            {{ $data->lantai ? $data->lantai->nama :  ''}}
+                                        </td>
                                         <td>{{ $data->nama_ruangan }}</td>
                                         <td>{{ $data->deskripsi }}</td>
                                         <td>{{ $data->ukuran }}</td>

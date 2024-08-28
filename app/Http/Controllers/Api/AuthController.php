@@ -168,8 +168,8 @@ class AuthController extends Controller
         }
     
         $validator = Validator::make($request->all(), [
-            'current_password' => 'required|string|min:8',
-            'new_password' => 'required|string|min:8',
+            'current_password' => 'required|string',
+            'new_password' => 'required|string',
         ]);
     
         if ($validator->fails()) {
@@ -177,6 +177,10 @@ class AuthController extends Controller
         }
     
         $user->password = bcrypt($request->new_password);
+        
+        // Reset the flag after the user has successfully changed their password
+        $user->is_password_reset = false;
+    
         $user->save();
     
         return response()->json([

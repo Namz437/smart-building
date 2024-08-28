@@ -93,6 +93,9 @@ Route::group(['middleware' => 'auth:sanctum', 'isAdmin', 'prefix' => 'admin'], f
 
 //test
 Route::get('status_ac', [DeviceController::class, 'get_status_ac']);
+
+
+
 // Login device
 Route::post('logindevice/{mac_address}', [DeviceController::class, 'logindevice']);
 
@@ -100,3 +103,5 @@ Route::post('logindevice/{mac_address}', [DeviceController::class, 'logindevice'
 Route::post('/user/reset-password/{id}', [UsersController::class, 'resetPassword']);
 // Untuk change password by id
 Route::post('users/{id}/change_password', [AuthController::class, 'changePasswordById']);
+// Untuk cek apakah dia sudah change password apa belum untuk frontend
+Route::get('/user/{id}/password-changed', [UsersController::class, 'isPasswordChanged']);

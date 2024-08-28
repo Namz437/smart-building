@@ -51,7 +51,7 @@
                                 @foreach ($gedungs as $data)
                                     <tr>
                                         <td>
-                                            {{ $data->id }}
+                                            {{ $data->perusahaan->nama }}
                                         </td>
                                         <td>{{ $data->nama_gedung }}</td>
                                         <td>{{ $data->deskripsi }}</td>

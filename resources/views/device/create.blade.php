@@ -45,22 +45,6 @@
                                     <div class="row">
 
                                         <div class="col-xl-4 col-md-6 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label" for="nama_device">Nama Device</label>
-                                                <input type="text" class="form-control" id="nama_device"
-                                                    name="nama_device" placeholder="Nama Device">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-4 col-md-6 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label" for="url">Url</label>
-                                                <input type="text" class="form-control" id="url" name="url"
-                                                    placeholder="URL">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xl-4 col-md-6 col-12">
                                             <label class="form-label" for="jenis_device_id">Jenis Device</label>
                                             <select class="form-select" id="jenis_device_id" name="jenis_device_id">
                                                 @foreach ($jenis_devices as $jenis_device)
@@ -68,6 +52,23 @@
                                                         {{ $jenis_device->nama_jenis }}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="merk_id">Merk</label>
+                                            <select class="form-select" id="merk_id" name="merk_id">
+                                                @foreach ($merks as $merk)
+                                                    <option value="{{ $merk->id }}">{{ $merk->nama_merk }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="nama_device">Nama Device</label>
+                                                <input type="text" class="form-control" id="nama_device"
+                                                    name="nama_device" placeholder="Nama Device">
+                                            </div>
                                         </div>
 
                                         <div class="col-xl-4 col-md-6 col-12">
@@ -80,13 +81,13 @@
                                             </select>
                                         </div>
 
+
                                         <div class="col-xl-4 col-md-6 col-12">
-                                            <label class="form-label" for="merk_id">Merk</label>
-                                            <select class="form-select" id="merk_id" name="merk_id">
-                                                @foreach ($merks as $merk)
-                                                    <option value="{{ $merk->id }}">{{ $merk->nama_merk }}</option>
-                                                @endforeach
-                                            </select>
+                                            <div class="mb-1">
+                                                <label class="form-label" for="url">Url</label>
+                                                <input type="text" class="form-control" id="url" name="url"
+                                                    placeholder="URL">
+                                            </div>
                                         </div>
 
                                         <div class="col-xl-4 col-md-6 col-12">

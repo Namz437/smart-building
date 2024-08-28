@@ -43,6 +43,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
+
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="nama_ruangan">Nama Ruangan</label>
@@ -60,6 +61,14 @@
                                         </div>
 
                                         <div class="col-xl-4 col-md-6 col-12">
+                                            <label class="form-label" for="lokasi">Lokasi</label>
+                                            <select class="form-select" id="lokasi" name="lokasi">
+                                                <option value="outdoor">Outdoor</option>
+                                                <option value="dalam">Dalam Ruangan</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-6 col-12">
                                             <label class="form-label" for="perusahaan_id">Perusahaan</label>
                                             <select class="form-select" id="perusahaan_id" name="perusahaan_id">
                                                 @foreach ($perusahaans as $perusahaan)
@@ -69,7 +78,7 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-xl-4 col-md-6 col-12">
+                                        <div class="col-xl-4 col-md-6 col-12" id="lantai_container" style="display: none;">
                                             <label class="form-label" for="lantai_id">Lantai</label>
                                             <select class="form-select" id="lantai_id" name="lantai_id">
                                                 @foreach ($lantais as $lantai)
@@ -110,5 +119,31 @@
 
 </body>
 <!-- END: Body-->
+<script>
+    document.getElementById('lokasi').addEventListener('change', function () {
+        var lokasi = this.value;
+        var lantaiContainer = document.getElementById('lantai_container');
+
+        if (lokasi === 'dalam') {
+            lantaiContainer.style.display = 'block'; // Tampilkan field lantai
+        } else {
+            lantaiContainer.style.display = 'none';  // Sembunyikan field lantai
+            document.getElementById('lantai_id').value = ''; // Kosongkan pilihan lantai
+        }
+    });
+</script>
+
+<script>
+    window.onload = function () {
+        var lokasi = document.getElementById('lokasi').value;
+        var lantaiContainer = document.getElementById('lantai_container');
+
+        if (lokasi === 'dalam') {
+            lantaiContainer.style.display = 'block';
+        } else {
+            lantaiContainer.style.display = 'none';
+        }
+    };
+</script>
 
 </html>

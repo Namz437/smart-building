@@ -86,18 +86,18 @@
                             <span class="menu-item text-truncate" data-i18n="Preview">Gedung</span>
                         </a>
                     </li>
-                    <li id="ruangan-menu">
-                        <a class="d-flex align-items-center" href="{{ url('settingruangan') }}"
-                            onclick="setActive('ruangan-menu')">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Edit">Ruangan</span>
-                        </a>
-                    </li>
                     <li id="lantai-menu">
                         <a class="d-flex align-items-center" href="{{ url('settinglantai') }}"
                             onclick="setActive('lantai-menu')">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Add">Lantai</span>
+                        </a>
+                    </li>
+                    <li id="ruangan-menu">
+                        <a class="d-flex align-items-center" href="{{ url('settingruangan') }}"
+                            onclick="setActive('ruangan-menu')">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Edit">Ruangan</span>
                         </a>
                     </li>
                 </ul>
@@ -125,6 +125,7 @@
                             <span class="menu-item text-truncate" data-i18n="Preview">Roles</span>
                         </a>
                     </li>
+
                     {{-- <li id="setting-roles-menu">
                         <a class="d-flex align-items-center" href="{{ url('settingroles') }}"
                             onclick="setActive('setting-roles-menu')">
@@ -132,6 +133,7 @@
                             <span class="menu-item text-truncate" data-i18n="Edit">Setting Roles</span>
                         </a>
                     </li> --}}
+
                     <li id="akses-roles-menu">
                         <a class="d-flex align-items-center" href="{{ url('settingaksesroles') }}"
                             onclick="setActive('akses-roles-menu')">
@@ -150,13 +152,7 @@
                     <span class="menu-title text-truncate" data-i18n="Invoice">Device Management</span>
                 </a>
                 <ul class="menu-content">
-                    <li id="device-menu">
-                        <a class="d-flex align-items-center" href="{{ url('device') }}"
-                            onclick="setActive('device-menu')">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="List">Device</span>
-                        </a>
-                    </li>
+
                     <li id="category-device-menu">
                         <a class="d-flex align-items-center" href="{{ url('categorydevice') }}"
                             onclick="setActive('category-device-menu')">
@@ -190,6 +186,13 @@
                             onclick="setActive('setting-kode-kontrol-menu')">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Add">Setting Kode Kontrol</span>
+                        </a>
+                    </li>
+                    <li id="device-menu">
+                        <a class="d-flex align-items-center" href="{{ url('device') }}"
+                            onclick="setActive('device-menu')">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="List">Device</span>
                         </a>
                     </li>
                     <li id="setting-rfid-menu">

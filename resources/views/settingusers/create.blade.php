@@ -85,6 +85,22 @@
                                             </select>
                                         </div>
 
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="rfid">RFID</label>
+                                                <input type="text" class="form-control" id="rfid" name="rfid"
+                                                    placeholder="RFID Users">
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="perusahaan_id">Perusahaan</label>
+                                                <input type="text" class="form-control" id="perusahaan_id" name="perusahaan_id"
+                                                    placeholder="Perusahaan ID">
+                                            </div>
+                                        </div>
+
 
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <a href="{{ route('settingusers.index') }}"

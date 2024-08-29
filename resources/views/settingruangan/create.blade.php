@@ -81,6 +81,7 @@
                                         <div class="col-xl-4 col-md-6 col-12" id="lantai_container" style="display: none;">
                                             <label class="form-label" for="lantai_id">Lantai</label>
                                             <select class="form-select" id="lantai_id" name="lantai_id">
+                                                <option value="" selected disabled>Pilih Lantai</option>
                                                 @foreach ($lantais as $lantai)
                                                     <option value="{{ $lantai->id }}">{{ $lantai->nama }}</option>
                                                 @endforeach

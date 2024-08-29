@@ -89,6 +89,22 @@
                                         </div>
 
                                         <div class="col-xl-4 col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="rfid">RFID</label>
+                                                <input type="text" class="form-control" id="rfid" name="rfid"
+                                                    value="{{ $users->rfid }}" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="perusahaan_id">Perusahaan</label>
+                                                <input type="text" class="form-control" id="perusahaan_id" name="perusahaan_id"
+                                                    value="{{ $users->perusahaan_id }}" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-4 col-md-6 col-12">
                                             <a href="{{ route('settingusers.index') }}"
                                                 class="btn btn-secondary mt-2">Back</a>
                                             <button class="btn btn-primary mt-2" type="submit">Edit Data Users</button>

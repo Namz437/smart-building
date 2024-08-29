@@ -32,6 +32,8 @@ class SettingUserController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
             'roles_id' => 'required',
+            'rfid' => 'required',
+            'perusahaan_id' => 'required',
         ]);
 
         if (empty($validator)) {
@@ -44,6 +46,8 @@ class SettingUserController extends Controller
             'email' => request('email'),
             'password' => bcrypt(request('password')),
             'roles_id' => request('roles_id'),
+            'rfid' => request('rfid'),
+            'perusahaan_id' => request('perusahaan_id'),
         ]);
         return redirect()->route('settingusers.index')->with('success', 'User berhasil ditambahkan');
     }
@@ -63,6 +67,8 @@ class SettingUserController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'required|string|min:6|confirmed',
             'roles_id' => 'required',
+            'rfid' => 'required',
+            'perusahaan_id' => 'required',
         ]);
 
         if (empty($validator)) {
@@ -75,6 +81,8 @@ class SettingUserController extends Controller
             'email' => request('email'),
             'password' => bcrypt(request('password')),
             'roles_id' => request('roles_id'),
+            'rfid' => request('rfid'),
+            'perusahaan_id' => request('perusahaan_id'),
         ]);
         return redirect()->route('settingusers.index')->with('success', 'User berhasil diupdate');
     }

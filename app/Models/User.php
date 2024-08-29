@@ -28,6 +28,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rfid',
+        'perusahaan_id',
     ];
 
     /**
@@ -74,10 +76,10 @@ class User extends Authenticatable
         return $this->belongsTo(Roles::class);
     }
 
-    public function settingroles()
-    {
-        return $this->hasMany(SettingRoles::class);
-    }
+    // public function settingroles()
+    // {
+    //     return $this->hasMany(SettingRoles::class);
+    // }
 
     public function rfid()
     {

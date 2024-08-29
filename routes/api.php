@@ -104,3 +104,8 @@ Route::post('/user/reset-password/{id}', [UsersController::class, 'resetPassword
 Route::post('users/{id}/change_password', [AuthController::class, 'changePasswordById']);
 // Untuk cek apakah dia sudah change password apa belum untuk frontend
 Route::get('/user/{id}/password-changed', [UsersController::class, 'isPasswordChanged']);
+
+// Untuk dikirim ke ESP 32 kirim rfid yang akses pintu apa aja
+Route::get('rfid/{mac_address}', [DeviceController::class, 'accessallrfid']);
+
+

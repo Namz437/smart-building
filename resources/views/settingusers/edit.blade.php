@@ -92,7 +92,7 @@
                                             <div class="mb-1">
                                                 <label class="form-label" for="rfid">RFID</label>
                                                 <input type="text" class="form-control" id="rfid" name="rfid"
-                                                    value="{{ $users->rfid }}" required>
+                                                    value="{{ $users->rfid }}">
                                             </div>
                                         </div>
 
@@ -100,7 +100,7 @@
                                             <div class="mb-1">
                                                 <label class="form-label" for="perusahaan_id">Perusahaan</label>
                                                 <input type="text" class="form-control" id="perusahaan_id" name="perusahaan_id"
-                                                    value="{{ $users->perusahaan_id }}" required>
+                                                    value="{{ $users->perusahaan_id }}">
                                             </div>
                                         </div>
 

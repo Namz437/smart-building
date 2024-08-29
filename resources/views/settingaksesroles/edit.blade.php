@@ -74,7 +74,7 @@
                                                 <optgroup label="Akses ke Pintu">
                                                     @foreach ($ruangans as $ruangan)
                                                         <option value="{{ $ruangan->id }}" 
-                                                            @if(in_array($ruangan->id, explode(',', trim($akses_roles->ruangan_id, '{}'))))
+                                                            @if(in_array($ruangan->id, json_decode($akses_roles->ruangan_id)))
                                                                 selected
                                                             @endif>
                                                             {{ $ruangan->nama_ruangan }}
@@ -83,7 +83,6 @@
                                                 </optgroup>
                                             </select>
                                         </div>
-
 
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <a href="{{ route('settingaksesroles.index') }}"

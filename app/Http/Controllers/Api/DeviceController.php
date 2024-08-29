@@ -9,6 +9,7 @@ use App\Models\History;
 use App\Models\KodeKontrol;
 use App\Models\Perusahaan;
 use App\Models\Rfid;
+use App\Models\Ruangan;
 // use App\Models\SettingRoles;
 use App\Models\User;
 use Carbon\Carbon;
@@ -680,4 +681,66 @@ class DeviceController extends Controller
             return response()->json($response, 500);
         }
     }
+
+    public function accessallrfid(Request $request)
+{
+    // Langkah 1: Dapatkan device berdasarkan MAC address
+    $device = Device::where('mac_address', $request->mac_address)->first();
+
+    // Cek apakah device ditemukan
+    if ($device) {
+        // Dapatkan ruangan_id dari device
+        $ruanganId = $device->ruangan_id;
+
+        // Langkah 2: Cari roles_id di tabel AksesRoles berdasarkan ruangan_id
+        $rolesIds = AksesRoles::where('ruangan_id', 'LIKE', '%[' . $ruanganId . ']%')
+                                ->orWhere('ruangan_id', 'LIKE', '%[' . $ruanganId . ',%')
+                                ->orWhere('ruangan_id', 'LIKE', '%,' . $ruanganId . ',%')
+                                ->orWhere('ruangan_id', 'LIKE', '%,' . $ruanganId . ']%')
+                                ->pluck('roles_id'); // Ambil roles_id saja
+
+        // Cek apakah ada roles_id yang ditemukan
+        if ($rolesIds->isNotEmpty()) {
+            // Langkah 3: Cari pengguna berdasarkan roles_id yang ditemukan
+            $rfids = User::whereIn('roles_id', $rolesIds)
+                         ->pluck('rfid')
+                         ->filter()
+                         ->unique()
+                         ->values() // Mengatur ulang kunci array dan mengembalikan array yang baru
+                         ->all(); // Mengonversi koleksi menjadi array
+
+            // Jika tidak ada RFID ditemukan
+            if (!empty($rfids)) {
+                // Return daftar RFID sebagai array
+                return response()->json([
+                    $rfids, // RFID sebagai array
+                ]);
+            } else {
+                // Handle jika tidak ada RFID yang ditemukan
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'No RFID found for these users',
+                ], 404);
+            }
+        } else {
+            // Handle jika tidak ada roles_id yang ditemukan
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No roles found for this ruangan',
+            ], 404);
+        }
+    } else {
+        // Handle jika device tidak ditemukan
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Device not found',
+        ], 404);
+    }
+}
+
+
+
+
+    
+
 }

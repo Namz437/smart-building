@@ -15,11 +15,11 @@ class SettingRuanganController extends Controller
      */
     public function index()
     {
-        $ruangans = Ruangan::with('perusahaan', 'lantai')->get();
-        $perusahaans = Perusahaan::all();
-        $lantais = Lantai::all();
+        $ruangans = Ruangan::with('perusahaan', 'lantai.gedung.perusahaan')->get();
+        // $perusahaans = Perusahaan::all();
+        // $lantais = Lantai::all();
 
-        return view('settingruangan.index', compact('ruangans', 'perusahaans', 'lantais'));
+        return view('settingruangan.index', compact('ruangans'));
     }
 
     public function create()
@@ -30,7 +30,7 @@ class SettingRuanganController extends Controller
         return view('settingruangan.create', [
             'ruangans' => $ruangans,
             'perusahaans' => $perusahaans,
-            'lantais' => $lantais
+            'lantais' => $lantais,
         ]);
     }
 
@@ -95,7 +95,6 @@ class SettingRuanganController extends Controller
         $ruangans = Ruangan::with(['perusahaan', 'lantai'])->find($id);
         return view('settingruangan.show', compact('ruangans', 'perusahaans', 'lantais'));
     }
-
 
     public function destroy($id)
     {

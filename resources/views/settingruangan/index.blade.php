@@ -53,9 +53,11 @@
                                 @foreach ($ruangans as $data)
                                     <tr>
                                         <td>
-                                            @if($data->lantai)
-                                            {{ $data->perusahaan ? $data->perusahaan->nama : '' }}
-                                        @endif
+                                            @if ($data->lantai != null)
+                                                {{ $data->lantai->gedung->perusahaan->nama }}
+                                            @else
+                                                {{ $data->perusahaan->nama }}
+                                            @endif
                                         </td>
                                         {{-- <td>
                                             {{ $data->lantai ? $data->lantai->nama :  ''}}

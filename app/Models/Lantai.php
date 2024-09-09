@@ -15,6 +15,8 @@ class Lantai extends Model
         'nama',
         'deskripsi',
         'gedung_id',
+        'perusahaan_id',
+
     ];
 
     public function ruangan()
@@ -25,4 +27,10 @@ class Lantai extends Model
     {
         return $this->belongsTo(Gedung::class);
     }
+
+    public function perusahaan()
+{
+    return $this->belongsTo(Perusahaan::class);
+}
+
 }

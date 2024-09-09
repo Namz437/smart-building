@@ -85,4 +85,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rfid::class);
     }
+
+    public function perusahaan()
+{
+    return $this->belongsTo(Perusahaan::class, 'perusahaan_id');
+}
+
 }

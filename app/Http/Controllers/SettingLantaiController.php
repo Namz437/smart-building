@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Gedung;
 use App\Models\Lantai;
+use App\Models\Perusahaan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,21 +14,24 @@ class SettingLantaiController extends Controller
     {
         $lantais = Lantai::all();
         $gedungs = Gedung::all();
+        $perusahaans = Perusahaan::all();
 
-        return view('settinglantai.index', compact('lantais', 'gedungs'));
+        return view('settinglantai.index', compact('lantais', 'gedungs', 'perusahaans'));
     }
     public function create()
     {
         $lantais = Lantai::all();
-        $gedungs = Gedung::all();
-
-        return view('settinglantai.create', compact('lantais', 'gedungs'));
+        $gedungs = Gedung::with('perusahaan')->get(); // Load the related Perusahaan with each Gedung
+        $perusahaans = Perusahaan::all();
+    
+        return view('settinglantai.create', compact('lantais', 'gedungs', 'perusahaans'));
     }
 
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'gedung_id' => 'required|string',
+
             'lantai' => 'required|string|max:255',
             'deskripsi' => 'required',
         ]);
@@ -52,15 +56,17 @@ class SettingLantaiController extends Controller
     public function edit($id)
     {
         $lantais = Lantai::with('gedung')->find($id);
-        $gedungs = Gedung::all();
+        $gedungs = Gedung::with('perusahaan')->get();
+        $perusahaans = perusahaan::all();
 
-        return view('settinglantai.edit', compact('lantais', 'gedungs'));
+        return view('settinglantai.edit', compact('lantais', 'gedungs', 'perusahaans'));
     }
 
     public function update(Request $request, $id)
     {
         $validator = Validator::make($request->all(), [
             'gedung_id' => 'required',
+
             'lantai' => 'required|string|max:255',
             'deskripsi' => 'required',
         ]);

@@ -41,9 +41,9 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nama Lantai</th>
-                                    <th>Gedung ID</th>
-                                    <th>Deskripsi</th>
+                                    <th>Lantai</th>
+                                    <th>Gedung</th>
+                                    <th>Deskripsi</th> 
                                     <th>Actions</th>
                                 </tr>
                             </thead>

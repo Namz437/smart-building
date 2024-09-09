@@ -75,7 +75,9 @@
                                         <td>{{ $data->email }}</td> 
                                         <td>{{ $data->roles->nama_role }}</td>
                                         <td>{{ $data->rfid }}</td> 
-                                        <td>{{ $data->perusahaan_id }}</td>
+                                        <td>
+                                            {{ $data->perusahaan ? $data->perusahaan->nama : '' }}
+                                        </td>
                                         <td>
                                             <div class="dropdown">
                                                 <button type="button"

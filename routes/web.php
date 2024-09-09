@@ -26,7 +26,7 @@ Route::get('/', function () {
 
 Route::post('prosesLogin', [AuthController::class, 'prosesLogin'])->name('proseslogin');
 
-Route::get('logout', [AuthController::class, 'logout'])->name('logout')->middleware('auth');
+Route::get('logout', [AuthController::class, 'proseslogout'])->name('logout')->middleware('auth');
 
 Route::group(['middleware' => 'auth:sanctum', 'admin'], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

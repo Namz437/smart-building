@@ -41,8 +41,8 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Perusahaan ID</th>
-                                    <th>Nama Gedung</th>
+                                    <th>Perusahaan</th>
+                                    <th>Gedung</th>
                                     <th>Deskripsi</th>
                                     <th>Actions</th>
                                 </tr>

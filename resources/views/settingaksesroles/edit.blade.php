@@ -74,7 +74,7 @@
                                                 <optgroup label="Akses ke Pintu">
                                                     @foreach ($ruangans as $ruangan)
                                                         <option value="{{ $ruangan->id }}" 
-                                                            @if(in_array($ruangan->id, json_decode($akses_roles->ruangan_id)))
+                                                            @if(is_array(json_decode($akses_roles->ruangan_id)) && in_array($ruangan->id, json_decode($akses_roles->ruangan_id)))
                                                                 selected
                                                             @endif>
                                                             {{ $ruangan->nama_ruangan }}

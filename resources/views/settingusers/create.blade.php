@@ -67,13 +67,13 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-4 col-md-6 col-12">
+                                        {{-- <div class="col-xl-4 col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="password">Password</label>
                                                 <input type="password" class="form-control" id="password"
                                                     name="password" placeholder="*********">
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <label class="form-label" for="roles_id">Roles</label>
@@ -93,12 +93,13 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-4 col-md-6 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label" for="perusahaan_id">Perusahaan</label>
-                                                <input type="text" class="form-control" id="perusahaan_id" name="perusahaan_id"
-                                                    placeholder="Perusahaan ID">
-                                            </div>
+                                        <div class="col-xl-4 col-md-6 col-12" id="perusahaan_container">
+                                            <label class="form-label" for="perusahaan_id">Perusahaan</label>
+                                            <select class="form-select" id="perusahaan_id" name="perusahaan_id">
+                                                @foreach ($perusahaans as $perusahaan)
+                                                    <option value="{{ $perusahaan->id }}">{{ $perusahaan->nama }}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
 

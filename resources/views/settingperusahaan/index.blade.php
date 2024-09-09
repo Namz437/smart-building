@@ -42,7 +42,7 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th>Nama Perusahaan</th>
+                                    <th>Perusahaan</th>
                                     <th>Lokasi</th>
                                     <th>Image</th>
                                     <th>KwH</th>

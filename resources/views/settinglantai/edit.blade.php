@@ -58,7 +58,10 @@
                                             <label class="form-label" for="gedung_id">Gedung</label>
                                             <select class="form-select" id="gedung_id" name="gedung_id">
                                                 @foreach ($gedungs as $gedung)
-                                                    <option value="{{ $gedung->id }}">{{ $gedung->nama_gedung }}
+                                                    <option value="{{ $gedung->id }}" 
+                                                        @if($gedung->id == $lantais->gedung_id) selected @endif>
+                                                        {{ $gedung->nama_gedung }}, 
+                                                        ({{ $gedung->perusahaan ? $gedung->perusahaan->nama : 'No Perusahaan' }})
                                                     </option>
                                                 @endforeach
                                             </select>

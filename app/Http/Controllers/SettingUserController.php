@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Perusahaan;
 use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,14 +15,16 @@ class SettingUserController extends Controller
     {
         $users = User::with('roles')->get();
         $roles = Roles::all();
-        return view('settingusers.index', compact('users', 'roles'));
+        $perusahaans = Perusahaan::all();
+        return view('settingusers.index', compact('users', 'roles', 'perusahaans'));
     }
 
     public function create()
     {
         $users = User::all();
         $roles = Roles::all();
-        return view('settingusers.create', compact('users', 'roles'));
+        $perusahaans = Perusahaan::all();
+        return view('settingusers.create', compact('users', 'roles', 'perusahaans'));
     }
 
     public function store()
@@ -56,7 +59,8 @@ class SettingUserController extends Controller
     {
         $users = User::where('id', $id)->first();
         $roles = Roles::all();
-        return view('settingusers.edit', compact('users', 'roles'));
+        $perusahaans = Perusahaan::all();
+        return view('settingusers.edit', compact('users', 'roles', 'perusahaans'));
     }
 
     public function update(Request $request, $id)
@@ -75,6 +79,10 @@ class SettingUserController extends Controller
             return redirect()->route('settingusers.index')->with('error', 'User tidak ditemukan');
         }
 
+
+        // Ambil data user yang akan diupdate
+        $user = User::find($id);
+
         $users = User::where('id', $id)->update([
             'no_id' => request('no_id'),
             'name' => request('name'),
@@ -84,7 +92,9 @@ class SettingUserController extends Controller
             'rfid' => request('rfid'),
             'perusahaan_id' => request('perusahaan_id'),
         ]);
-        return redirect()->route('settingusers.index')->with('success', 'User berhasil diupdate');
+
+        // Redirect dengan pesan sukses yang menyertakan nama
+        return redirect()->route('settingusers.index')->with('success', 'User ' . $user->name . ' berhasil diupdate');
     }
 
     public function destroy($id)

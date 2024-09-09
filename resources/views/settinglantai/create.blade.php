@@ -54,10 +54,16 @@
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <label class="form-label" for="gedung_id">Gedung</label>
                                             <select class="form-select" id="gedung_id" name="gedung_id">
-                                                @foreach ($gedungs as $gedung)
-                                                    <option value="{{ $gedung->id }}">{{ $gedung->nama_gedung }}
-                                                    </option>
-                                                @endforeach
+                                                @if($gedungs && $gedungs->count())
+                                                    @foreach ($gedungs as $gedung)
+                                                        <option value="{{ $gedung->id }}">
+                                                            {{ $gedung->nama_gedung }}, 
+                                                            ({{ $gedung->perusahaan ? $gedung->perusahaan->nama : 'No Perusahaan' }})
+                                                        </option>
+                                                    @endforeach
+                                                @else
+                                                    <option value="" disabled>No Gedung available</option>
+                                                @endif
                                             </select>
                                         </div>
 

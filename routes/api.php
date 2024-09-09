@@ -93,11 +93,6 @@ Route::group(['middleware' => 'auth:sanctum', 'isAdmin', 'prefix' => 'admin'], f
 //test
 Route::get('status_ac', [DeviceController::class, 'get_status_ac']);
 
-
-
-// Login device
-Route::post('logindevice/{mac_address}', [DeviceController::class, 'logindevice']);
-
 // Untuk reset password by id
 Route::post('/user/reset-password/{id}', [UsersController::class, 'resetPassword']);
 // Untuk change password by id
@@ -105,6 +100,11 @@ Route::post('users/{id}/change_password', [AuthController::class, 'changePasswor
 // Untuk cek apakah dia sudah change password apa belum untuk frontend
 Route::get('/user/{id}/password-changed', [UsersController::class, 'isPasswordChanged']);
 
+
+// Login device
+Route::post('esp/logindevice/{mac_address}', [DeviceController::class, 'logindevice']);
+// Untuk esp kirim status pintu ke 2
+Route::post('esp/update_status_pintu', [DeviceController::class, 'espstatuspintu']);
 // Untuk dikirim ke ESP 32 kirim rfid yang akses pintu apa aja
 Route::get('rfid/{mac_address}', [DeviceController::class, 'accessallrfid']);
 

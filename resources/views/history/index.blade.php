@@ -30,6 +30,23 @@
             </div>
         </div>
 
+        <!-- Date Filter Form -->
+<form method="GET" action="{{ route('history.index') }}">
+    <div class="row mb-2">
+        <div class="col-md-4">
+            <label for="start_date">Start Date</label>
+            <input type="date" id="start_date" name="start_date" class="form-control" value="{{ request('start_date') }}">
+        </div>
+        <div class="col-md-4">
+            <label for="end_date">End Date</label>
+            <input type="date" id="end_date" name="end_date" class="form-control" value="{{ request('end_date') }}">
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
         <!-- Bordered table start -->
         <div class="row" id="table-bordered">
             <div class="col-12">

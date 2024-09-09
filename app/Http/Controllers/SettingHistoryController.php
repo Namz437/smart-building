@@ -13,16 +13,25 @@ class SettingHistoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Buat ngambil 50 data baru
-        $historys = History::with('users', 'device')
-            ->orderBy('created_at', 'desc') // ngurutin data create masuknya, dengan descending
-            ->limit(50) // di limitkan 50 data history
-            ->get();
+        // Initialize the query
+        $query = History::with('users', 'device')->orderBy('created_at', 'desc');
+    
+        // Apply date filters if present
+        if ($request->has('start_date') && $request->start_date) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+        if ($request->has('end_date') && $request->end_date) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+    
+        // Limit to 50 results
+        $historys = $query->limit(50)->get();
+    
         $users = User::all();
         $device = Device::all();
-
+    
         return view('history.index', compact('historys', 'users', 'device'));
     }
 

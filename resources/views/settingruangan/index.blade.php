@@ -42,7 +42,7 @@
                             <thead>
                                 <tr>
                                     <th>Perusahaan</th>
-                                    <th>Lantai</th>
+                                    {{-- <th>Lantai</th> --}}
                                     <th>Nama Ruangan</th>
                                     <th>Deskripsi</th>
                                     <th>Ukuran</th>
@@ -53,11 +53,13 @@
                                 @foreach ($ruangans as $data)
                                     <tr>
                                         <td>
+                                            @if($data->lantai)
                                             {{ $data->perusahaan ? $data->perusahaan->nama : '' }}
+                                        @endif
                                         </td>
-                                        <td>
+                                        {{-- <td>
                                             {{ $data->lantai ? $data->lantai->nama :  ''}}
-                                        </td>
+                                        </td> --}}
                                         <td>{{ $data->nama_ruangan }}</td>
                                         <td>{{ $data->deskripsi }}</td>
                                         <td>{{ $data->ukuran }}</td>

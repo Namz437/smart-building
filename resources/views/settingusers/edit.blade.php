@@ -48,7 +48,7 @@
                                             <div class="mb-1">
                                                 <label class="form-label" for="no_id">No_ID</label>
                                                 <input type="text" class="form-control" id="no_id" name="no_id"
-                                                    value="{{ $users->no_id }}">
+                                                    value="{{ $users->no_id }}" readonly>
                                             </div>
                                         </div>
 
@@ -64,17 +64,17 @@
                                             <div class="mb-1">
                                                 <label class="form-label" for="email">Email</label>
                                                 <input type="email" class="form-control" id="email" name="email"
-                                                    value="{{ $users->email }}" required>
+                                                    value="{{ $users->email }}" readonly>
                                             </div>
                                         </div>
 
-                                        <div class="col-xl-4 col-md-6 col-12">
+                                        {{-- <div class="col-xl-4 col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="password">Password</label>
                                                 <input type="password" class="form-control" id="password"
                                                     name="password" value="{{ $users->password }}" required>
                                             </div>
-                                        </div>
+                                        </div> --}}
 
                                         <div class="col-xl-4 col-md-6 col-12">
                                             <label class="form-label" for="roles_id">Roles</label>
@@ -97,11 +97,15 @@
                                         </div>
 
                                         <div class="col-xl-4 col-md-6 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label" for="perusahaan_id">Perusahaan</label>
-                                                <input type="text" class="form-control" id="perusahaan_id" name="perusahaan_id"
-                                                    value="{{ $users->perusahaan_id }}">
-                                            </div>
+                                            <label class="form-label" for="perusahaan_id">Perusahaan</label>
+                                            <select class="form-select" id="perusahaan_id" name="perusahaan_id">
+                                                @foreach ($perusahaans as $perusahaan)
+                                                    <option value="{{ $perusahaan->id }}"
+                                                        {{ $users->perusahaan_id == $perusahaan->id ? 'selected' : '' }}>
+                                                        {{ $perusahaan->nama }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
                                         </div>
 
                                         <div class="col-xl-4 col-md-6 col-12">

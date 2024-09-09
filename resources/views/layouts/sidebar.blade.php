@@ -195,13 +195,13 @@
                             <span class="menu-item text-truncate" data-i18n="List">Device</span>
                         </a>
                     </li>
-                    <li id="setting-rfid-menu">
+                    {{-- <li id="setting-rfid-menu">
                         <a class="d-flex align-items-center" href="{{ url('settingrfid') }}"
                             onclick="setActive('setting-rfid-menu')">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Add">RFID</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
             <!-- End Device -->

@@ -68,12 +68,11 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-xl-4 col-md-6 col-12">
+                                        <div class="col-xl-4 col-md-6 col-12" id="perusahaan_container">
                                             <label class="form-label" for="perusahaan_id">Perusahaan</label>
                                             <select class="form-select" id="perusahaan_id" name="perusahaan_id">
                                                 @foreach ($perusahaans as $perusahaan)
-                                                    <option value="{{ $perusahaan->id }}">{{ $perusahaan->nama }}
-                                                    </option>
+                                                    <option value="{{ $perusahaan->id }}">{{ $perusahaan->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -145,6 +144,19 @@
             lantaiContainer.style.display = 'none';
         }
     };
+</script>
+
+<script>
+    document.getElementById('lokasi').addEventListener('change', function () {
+        var lokasiValue = this.value;
+        var perusahaanContainer = document.getElementById('perusahaan_container');
+
+        if (lokasiValue === 'dalam') {
+            perusahaanContainer.style.display = 'none';
+        } else {
+            perusahaanContainer.style.display = 'block';
+        }
+    });
 </script>
 
 </html>

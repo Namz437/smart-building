@@ -738,7 +738,54 @@ class DeviceController extends Controller
     }
 }
 
+public function espstatuspintu (Request $request)
+{
+    try {
+        // Validasi input
+        $validator = Validator::make($request->all(), [
+            'mac_address' => 'required',
+            'status' => 'required',
+        ]);
 
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        // Temukan device berdasarkan id
+        $device = Device::where('mac_address', $request->mac_address)->first();
+        if (!$device) {
+            return response()->json(['message' => 'Device tidak ditemukan'], 404);
+        }
+
+        // $index = 0;
+        // if ($device->qr_code != null && $device->qr_code == 0) {
+        //     $index = 1;
+        // } else {
+        //     $index = 0;
+        // }
+        // Update status device
+        $device->update(['status' => $request->status]);
+
+        // Temukan entri terakhir di History untuk device ini
+
+        $response = [
+            'success' => true,
+            'message' => 'status berhasil diupdate',
+        ];
+
+        return response()->json($response, 200);
+    } catch (Exception $e) {
+        // Log error message untuk debugging
+        Log::error('Error updating status: ' . $e->getMessage());
+
+        $response = [
+            'success' => false,
+            'message' => 'Status gagal diupdate: ' . $e->getMessage(),
+        ];
+        return response()->json($response, 500);
+    }
+
+}
 
 
     

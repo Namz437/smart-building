@@ -38,7 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('logout', [AuthController::class, 'logout']);
-    // Route::post('change_password', [AuthController::class, 'change_password']);
+    Route::post('change_password', [AuthController::class, 'change_password']);
     Route::post('device/updateSuhu', [DeviceController::class, 'updateSuhu']);
     Route::get('device/{id}', [DeviceController::class, 'show']);
     Route::post('device/{id}/status', [DeviceController::class, 'updateStatus']);
@@ -100,12 +100,9 @@ Route::post('users/{id}/change_password', [AuthController::class, 'changePasswor
 // Untuk cek apakah dia sudah change password apa belum untuk frontend
 Route::get('/user/{id}/password-changed', [UsersController::class, 'isPasswordChanged']);
 
-
 // Login device
 Route::post('esp/logindevice/{mac_address}', [DeviceController::class, 'logindevice']);
 // Untuk esp kirim status pintu ke 2
 Route::post('esp/update_status_pintu', [DeviceController::class, 'espstatuspintu']);
 // Untuk dikirim ke ESP 32 kirim rfid yang akses pintu apa aja
 Route::get('rfid/{mac_address}', [DeviceController::class, 'accessallrfid']);
-
-

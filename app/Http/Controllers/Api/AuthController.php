@@ -91,6 +91,7 @@ class AuthController extends Controller
                 'access_token' => $token,
                 'users_id' => $user->id,
                 'roles_id' => $user->roles_id,
+                'access_menu' => $user->roles->access,
                 'is_update_password' => $user->is_update_password,
                 'perusahaan_id' => $user->perusahaan_id,
             ]);
@@ -158,7 +159,42 @@ class AuthController extends Controller
             return response()->json($response, 500);
         }
     }
+    public function change_password(Request $request)
+    {
+        if (!(Hash::check($request->get('current_password'), Auth::user()->password))) {
+            // The passwords matches
+            return response()->json(['success' => false,
+                'message' => 'Your current password does not matches with the password.', 401]);
+        }
 
+        if (strcmp($request->get('current_password'), $request->get('new_password')) == 0) {
+            return response()->json(['success' => false,
+                'message' => 'New Password cannot be same as your current password.', 401]);
+        }
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required|string',
+            'new_password' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $user = Auth::user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        $s = User::find($user->id);
+        $s->is_update_password = '1';
+        $s->save();
+        // auth()->user()->tokens()->delete();
+
+        return response()
+            ->json(['success' => true,
+                'message' => 'Password has been changed, Thank You.',
+            ]);
+
+    }
     public function changePasswordById(Request $request, $id)
     {
         $user = User::find($id);
@@ -194,10 +230,10 @@ class AuthController extends Controller
         }
 
         $user->password = bcrypt($request->new_password);
-        
+
         // Reset the flag after the user has successfully changed their password
         $user->is_password_reset = false;
-    
+
         $user->save();
 
         return response()->json([

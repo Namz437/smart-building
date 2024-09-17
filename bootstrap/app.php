@@ -15,6 +15,7 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
             'isAdmin' => Admin::class,
+            'esp'
         ]);
         $web = [
             'guest' => true,
@@ -22,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'verified' => true,
         ];
     })
+
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();

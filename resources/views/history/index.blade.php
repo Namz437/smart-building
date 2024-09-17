@@ -47,6 +47,16 @@
     </div>
 </form>
 
+<!-- Search Input -->
+<div class="row mb-2">
+    <div class="col-12">
+        <div class="input-group">
+            <span class="input-group-text" id="basic-addon1">Search</span>
+            <input type="text" id="search-input" class="form-control w-80" placeholder="Cari Data..." onkeyup="searchHistory()" aria-describedby="basic-addon1">
+        </div>
+    </div>
+</div>
+
         <!-- Bordered table start -->
         <div class="row" id="table-bordered">
             <div class="col-12">
@@ -69,6 +79,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Pesan No Data Result -->
+                        <tr id="no-data" style="display: none;">
+                            <td colspan="4" class="text-center">No data result.</td>
+                        </tr>
                                 @foreach ($historys as $data)
                                     <tr>
                                         <td>
@@ -99,5 +113,39 @@
 
 </body>
 <!-- END: Body-->
+<script>
+    function searchHistory() {
+        // Ambil input pencarian
+        let input = document.getElementById('search-input').value.toLowerCase();
+        
+        // Ambil semua baris data history
+        let rows = document.querySelectorAll('tbody tr:not(#no-data)');
+        let noData = document.getElementById('no-data');
+        let found = false; // Penanda apakah ada data yang cocok
+
+        rows.forEach(row => {
+            // Ambil teks dari setiap kolom
+            let userId = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+            let device = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            let status = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
+            let deskripsi = row.querySelector('td:nth-child(4)').innerText.toLowerCase();
+
+            // Tampilkan atau sembunyikan baris berdasarkan pencarian
+            if (userId.includes(input) || device.includes(input) || status.includes(input) || deskripsi.includes(input)) {
+                row.style.display = ''; // Tampilkan
+                found = true; // Ada data yang sesuai
+            } else {
+                row.style.display = 'none'; // Sembunyikan
+            }
+        });
+
+        // Tampilkan atau sembunyikan pesan "No data result"
+        if (found) {
+            noData.style.display = 'none'; // Sembunyikan pesan
+        } else {
+            noData.style.display = ''; // Tampilkan pesan
+        }
+    }
+</script>
 
 </html>

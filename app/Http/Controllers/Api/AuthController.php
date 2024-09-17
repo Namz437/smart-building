@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Roles;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -60,6 +61,7 @@ class AuthController extends Controller
         }
     }
 
+// pada method login tambahkan response nya "access_menu" diambil dari tabel roles
     public function login(Request $request)
     {
         if (!Auth::attempt($request->only('email', 'password'))) {
@@ -83,7 +85,14 @@ class AuthController extends Controller
         //     }
         // }
 
+         // Ambil access dari tabel roles berdasarkan roles_id user
+        $role = Roles::where('id', $user->roles_id)->first();
+    
+        // Jika role ditemukan, ambil nilai access dari role tersebut
+        $access_menu = $role ? $role->access : null;
+
         $token = $user->createToken('auth_token')->plainTextToken;
+        // print( Auth::user());
         return response()
             ->json([
                 'success' => true,
@@ -93,6 +102,7 @@ class AuthController extends Controller
                 'roles_id' => $user->roles_id,
                 'is_update_password' => $user->is_update_password,
                 'perusahaan_id' => $user->perusahaan_id,
+                'access_menu' => $access_menu, // Tambahkan access_menu dari tabel roles
             ]);
 
         return response()

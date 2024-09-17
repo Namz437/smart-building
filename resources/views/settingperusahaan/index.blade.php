@@ -37,6 +37,12 @@
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{ route('settingperusahaan.create') }}">Tambah Data Perusahaan
                             +</a>
+
+                            <div class="input-group w-25">
+                                <span class="input-group-text">Search</span>
+                                <input type="text" id="search-input" class="form-control" placeholder="Cari Perusahaan..." onkeyup="searchPerusahaan()">
+                            </div>
+
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -52,6 +58,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                 <!-- Pesan No Data -->
+                                <tr id="no-data" style="display: none;">
+                                    <td colspan="7" class="text-center">No data result.</td>
+                                </tr>
                                 @foreach ($perusahaans as $data)
                                     <tr>
                                         <td>
@@ -128,5 +138,41 @@
 
 </body>
 <!-- END: Body-->
+<script>
+    function searchPerusahaan() {
+        // Ambil input pencarian
+        let input = document.getElementById('search-input').value.toLowerCase();
+        
+        // Ambil semua baris data perusahaan
+        let rows = document.querySelectorAll('tbody tr:not(#no-data)');
+        let noData = document.getElementById('no-data');
+        let found = false; // Penanda apakah ada data yang cocok
+
+        rows.forEach(row => {
+            // Ambil teks dari beberapa kolom (Perusahaan, Lokasi, KwH, Harga KwH, Deskripsi)
+            let nama = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+            let lokasi = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            let kwh = row.querySelector('td:nth-child(4)').innerText.toLowerCase();
+            let harga_kwh = row.querySelector('td:nth-child(5)').innerText.toLowerCase();
+            let deskripsi = row.querySelector('td:nth-child(6)').innerText.toLowerCase();
+
+            // Cek apakah input ada di salah satu kolom
+            if (nama.includes(input) || lokasi.includes(input) || kwh.includes(input) ||
+                harga_kwh.includes(input) || deskripsi.includes(input)) {
+                row.style.display = ''; // Tampilkan baris
+                found = true; // Ada data yang sesuai
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+
+        // Tampilkan atau sembunyikan pesan "No data result"
+        if (found) {
+            noData.style.display = 'none'; // Sembunyikan pesan
+        } else {
+            noData.style.display = ''; // Tampilkan pesan
+        }
+    }
+</script>
 
 </html>

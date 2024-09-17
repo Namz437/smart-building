@@ -37,6 +37,11 @@
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{ route('jenisdevice.create') }}">Tambah Data Jenis Device
                             +</a>
+                            <!-- Input Search -->
+                <div class="input-group w-25 mt-2">
+                    <span class="input-group-text" id="basic-addon1">Search</span>
+                    <input type="text" id="search-input" class="form-control" placeholder="Cari Jenis Device..." onkeyup="searchJenisDevices()" aria-describedby="basic-addon1">
+                </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -49,6 +54,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                 <!-- Pesan No Data Result -->
+                        <tr id="no-data" style="display: none;">
+                            <td colspan="4" class="text-center">No data result.</td>
+                        </tr>
                                 @foreach ($jenis_devices as $data)
                                     <tr>
                                         <td>
@@ -113,5 +122,38 @@
 
 </body>
 <!-- END: Body-->
+<script>
+    function searchJenisDevices() {
+        // Ambil input pencarian
+        let input = document.getElementById('search-input').value.toLowerCase();
+        
+        // Ambil semua baris data jenis perangkat
+        let rows = document.querySelectorAll('tbody tr:not(#no-data)');
+        let noData = document.getElementById('no-data');
+        let found = false; // Penanda apakah ada data yang cocok
+
+        rows.forEach(row => {
+            // Ambil teks dari beberapa kolom (Category Device, Nama Jenis, Deskripsi)
+            let category = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+            let name = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            let description = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
+
+            // Cek apakah input ada di salah satu kolom
+            if (category.includes(input) || name.includes(input) || description.includes(input)) {
+                row.style.display = ''; // Tampilkan baris
+                found = true; // Ada data yang sesuai
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+
+        // Tampilkan atau sembunyikan pesan "No data result"
+        if (found) {
+            noData.style.display = 'none'; // Sembunyikan pesan
+        } else {
+            noData.style.display = ''; // Tampilkan pesan
+        }
+    }
+</script>
 
 </html>

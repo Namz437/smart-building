@@ -18,7 +18,10 @@ class Perusahaan extends Model
         'lokasi',
         'image',
         'kwh',
-        'harga_kwh'
+        'harga_kwh',
+        'latitude',
+        'longitude',
+        'pin'
     ];
 
     public function gedung()

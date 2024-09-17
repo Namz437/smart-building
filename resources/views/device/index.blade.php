@@ -36,6 +36,11 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{ route('device.create') }}">Tambah Data Device +</a>
+                        <!-- Input Search -->
+                <div class="input-group w-25 mt-2">
+                    <span class="input-group-text" id="basic-addon1">Search</span>
+                    <input type="text" id="search-input" class="form-control" placeholder="Cari Device..." onkeyup="searchDevice()" aria-describedby="basic-addon1">
+                </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -56,6 +61,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                 <!-- Pesan No Data Result -->
+                        <tr id="no-data" style="display: none;">
+                            <td colspan="12" class="text-center">No data result.</td>
+                        </tr>
                                 @foreach ($devices as $data)
                                     <tr>
                                         <td>
@@ -128,5 +137,46 @@
 
 </body>
 <!-- END: Body-->
+<script>
+    function searchDevice() {
+        // Ambil input pencarian
+        let input = document.getElementById('search-input').value.toLowerCase();
+        
+        // Ambil semua baris data device
+        let rows = document.querySelectorAll('tbody tr:not(#no-data)');
+        let noData = document.getElementById('no-data');
+        let found = false; // Penanda apakah ada data yang cocok
+
+        rows.forEach(row => {
+            // Ambil teks dari setiap kolom
+            let deviceName = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+            let url = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            let jenisDevice = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
+            let ruangan = row.querySelector('td:nth-child(4)').innerText.toLowerCase();
+            let merk = row.querySelector('td:nth-child(5)').innerText.toLowerCase();
+            let suhu = row.querySelector('td:nth-child(6)').innerText.toLowerCase();
+            let status = row.querySelector('td:nth-child(7)').innerText.toLowerCase();
+            let minSuhu = row.querySelector('td:nth-child(8)').innerText.toLowerCase();
+            let maxSuhu = row.querySelector('td:nth-child(9)').innerText.toLowerCase();
+            let watt = row.querySelector('td:nth-child(10)').innerText.toLowerCase();
+            let macAddress = row.querySelector('td:nth-child(11)').innerText.toLowerCase();
+
+            // Tampilkan atau sembunyikan baris berdasarkan pencarian
+            if (deviceName.includes(input) || url.includes(input) || jenisDevice.includes(input) || ruangan.includes(input) || merk.includes(input) || suhu.includes(input) || status.includes(input) || minSuhu.includes(input) || maxSuhu.includes(input) || watt.includes(input) || macAddress.includes(input)) {
+                row.style.display = ''; // Tampilkan
+                found = true; // Ada data yang sesuai
+            } else {
+                row.style.display = 'none'; // Sembunyikan
+            }
+        });
+
+        // Tampilkan atau sembunyikan pesan "No data result"
+        if (found) {
+            noData.style.display = 'none'; // Sembunyikan pesan
+        } else {
+            noData.style.display = ''; // Tampilkan pesan
+        }
+    }
+</script>
 
 </html>

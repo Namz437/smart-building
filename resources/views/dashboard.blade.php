@@ -84,6 +84,9 @@
         </div>
         </section>
         <!-- Dashboard Ecommerce ends -->
+
+        <!-- Tempat untuk menampilkan chart -->
+        
     </div>
 </div>
 <!-- END: Content-->
@@ -95,5 +98,6 @@
 
 </body>
 <!-- END: Body-->
+
 
 </html>

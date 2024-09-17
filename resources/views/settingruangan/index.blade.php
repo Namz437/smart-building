@@ -36,6 +36,11 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{ route('settingruangan.create') }}">Tambah Data Ruangan +</a>
+                        <!-- Input Search -->
+                <div class="input-group w-25 mt-2">
+                    <span class="input-group-text">Search</span>
+                    <input type="text" id="search-input" class="form-control" placeholder="Cari Ruangan..." onkeyup="searchRuangan()">
+                </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -50,13 +55,19 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                 <!-- Pesan No Data -->
+                        <tr id="no-data" style="display: none;">
+                            <td colspan="5" class="text-center">No data result.</td>
+                        </tr>
                                 @foreach ($ruangans as $data)
                                     <tr>
                                         <td>
-                                            @if ($data->lantai != null)
+                                            @if ($data->lantai && $data->lantai->gedung && $data->lantai->gedung->perusahaan)
                                                 {{ $data->lantai->gedung->perusahaan->nama }}
-                                            @else
+                                            @elseif ($data->perusahaan)
                                                 {{ $data->perusahaan->nama }}
+                                            @else
+                                                Tidak ada perusahaan
                                             @endif
                                         </td>
                                         {{-- <td>
@@ -123,5 +134,39 @@
 
 </body>
 <!-- END: Body-->
+<script>
+    function searchRuangan() {
+        // Ambil input pencarian
+        let input = document.getElementById('search-input').value.toLowerCase();
+        
+        // Ambil semua baris data ruangan
+        let rows = document.querySelectorAll('tbody tr:not(#no-data)');
+        let noData = document.getElementById('no-data');
+        let found = false; // Penanda apakah ada data yang cocok
+
+        rows.forEach(row => {
+            // Ambil teks dari beberapa kolom (Perusahaan, Nama Ruangan, Deskripsi, Ukuran)
+            let perusahaan = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+            let namaRuangan = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            let deskripsi = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
+            let ukuran = row.querySelector('td:nth-child(4)').innerText.toLowerCase();
+
+            // Cek apakah input ada di salah satu kolom
+            if (perusahaan.includes(input) || namaRuangan.includes(input) || deskripsi.includes(input) || ukuran.includes(input)) {
+                row.style.display = ''; // Tampilkan baris
+                found = true; // Ada data yang sesuai
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+
+        // Tampilkan atau sembunyikan pesan "No data result"
+        if (found) {
+            noData.style.display = 'none'; // Sembunyikan pesan
+        } else {
+            noData.style.display = ''; // Tampilkan pesan
+        }
+    }
+</script>
 
 </html>

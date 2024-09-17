@@ -36,6 +36,11 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{ route('roles.create') }}">Tambah Data Roles +</a>
+                        <!-- Input Search -->
+                <div class="input-group w-25 mt-2">
+                    <span class="input-group-text">Search</span>
+                    <input type="text" id="search-input" class="form-control" placeholder="Cari Roles..." onkeyup="searchRoles()">
+                </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -47,6 +52,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                 <!-- Pesan No Data -->
+                        <tr id="no-data" style="display: none;">
+                            <td colspan="3" class="text-center">No data result.</td>
+                        </tr>
                                 @foreach ($roles as $data)
                                     <tr>
                                         <td>
@@ -110,5 +119,35 @@
 
 </body>
 <!-- END: Body-->
+<script>
+    function searchRoles() {
+        // Ambil input pencarian
+        let input = document.getElementById('search-input').value.toLowerCase();
+        
+        // Ambil semua baris data roles
+        let rows = document.querySelectorAll('tbody tr:not(#no-data)');
+        let noData = document.getElementById('no-data');
+        let found = false; // Penanda apakah ada data yang cocok
 
+        rows.forEach(row => {
+            // Ambil teks dari kolom Roles
+            let roles = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+
+            // Cek apakah input ada di kolom roles
+            if (roles.includes(input)) {
+                row.style.display = ''; // Tampilkan baris
+                found = true; // Ada data yang sesuai
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+
+        // Tampilkan atau sembunyikan pesan "No data result"
+        if (found) {
+            noData.style.display = 'none'; // Sembunyikan pesan
+        } else {
+            noData.style.display = ''; // Tampilkan pesan
+        }
+    }
+</script>
 </html>

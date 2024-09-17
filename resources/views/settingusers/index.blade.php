@@ -51,6 +51,12 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{ route('settingusers.create') }}">Tambah Data Users +</a>
+
+                        <!-- Input Search -->
+                        <div class="input-group w-25">
+                            <span class="input-group-text" id="basic-addon1">Search</span>
+                            <input type="text" id="search-input" class="form-control" placeholder="Cari Users..." onkeyup="searchUsers()" aria-describedby="basic-addon1">
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -66,6 +72,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Pesan No Data Result -->
+                        <tr id="no-data" style="display: none;">
+                            <td colspan="7" class="text-center">No data result.</td>
+                        </tr>
                                 @foreach ($users as $data)
                                     <tr>
                                         <td>{{ $data->no_id }}</td>
@@ -145,5 +155,44 @@
 
 </body>
 <!-- END: Body-->
+
+<script>
+    function searchUsers() {
+        // Ambil input pencarian
+        let input = document.getElementById('search-input').value.toLowerCase();
+        
+        // Ambil semua baris data users
+        let rows = document.querySelectorAll('tbody tr:not(#no-data)');
+        let noData = document.getElementById('no-data');
+        let found = false; // Penanda apakah ada data yang cocok
+
+        rows.forEach(row => {
+            // Ambil teks dari beberapa kolom (No_ID, Nama User, Email, Roles, RFID, Perusahaan)
+            let no_id = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+            let name = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            let email = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
+            let roles = row.querySelector('td:nth-child(4)').innerText.toLowerCase();
+            let rfid = row.querySelector('td:nth-child(5)').innerText.toLowerCase();
+            let perusahaan = row.querySelector('td:nth-child(6)').innerText.toLowerCase();
+
+            // Cek apakah input ada di salah satu kolom
+            if (no_id.includes(input) || name.includes(input) || email.includes(input) ||
+                roles.includes(input) || rfid.includes(input) || perusahaan.includes(input)) {
+                row.style.display = ''; // Tampilkan baris
+                found = true; // Ada data yang sesuai
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+
+        // Tampilkan atau sembunyikan pesan "No data result"
+        if (found) {
+            noData.style.display = 'none'; // Sembunyikan pesan
+        } else {
+            noData.style.display = ''; // Tampilkan pesan
+        }
+    }
+</script>
+
 
 </html>

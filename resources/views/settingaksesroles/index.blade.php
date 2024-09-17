@@ -34,10 +34,16 @@
         <div class="row" id="table-bordered">
             <div class="col-12">
                 <div class="card">
-                    {{-- <div class="card-header">
-                        <a class="btn btn-primary" href="{{ route('settingaksesroles.create') }}">Tambah Data Akses
-                            Roles +</a>
-                    </div> --}}
+                    <div class="card-header">
+                        {{-- <a class="btn btn-primary" href="{{ route('settingaksesroles.create') }}">Tambah Data Akses
+                            Roles +</a> --}}
+                            <!-- Input Search -->
+            <div class="input-group w-25 mt-2">
+                <span class="input-group-text">Search</span>
+                <input type="text" id="search-input" class="form-control" placeholder="Cari Akses Roles..." onkeyup="searchAksesRoles()">
+            </div>
+                    </div>
+                    
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -48,6 +54,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                 <!-- Pesan No Data -->
+                        <tr id="no-data" style="display: none;">
+                            <td colspan="3" class="text-center">No data result.</td>
+                        </tr>
                                 @foreach ($akses_roles as $data)
                                     <tr>
                                         <td>
@@ -119,5 +129,37 @@
 
 </body>
 <!-- END: Body-->
+<script>
+    function searchAksesRoles() {
+        // Ambil input pencarian
+        let input = document.getElementById('search-input').value.toLowerCase();
+        
+        // Ambil semua baris data akses roles
+        let rows = document.querySelectorAll('tbody tr:not(#no-data)');
+        let noData = document.getElementById('no-data');
+        let found = false; // Penanda apakah ada data yang cocok
+
+        rows.forEach(row => {
+            // Ambil teks dari kolom Roles dan Ruangan
+            let roles = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+            let ruangan = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+
+            // Cek apakah input ada di kolom roles atau ruangan
+            if (roles.includes(input) || ruangan.includes(input)) {
+                row.style.display = ''; // Tampilkan baris
+                found = true; // Ada data yang sesuai
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+
+        // Tampilkan atau sembunyikan pesan "No data result"
+        if (found) {
+            noData.style.display = 'none'; // Sembunyikan pesan
+        } else {
+            noData.style.display = ''; // Tampilkan pesan
+        }
+    }
+</script>
 
 </html>

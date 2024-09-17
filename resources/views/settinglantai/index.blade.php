@@ -36,6 +36,11 @@
                 <div class="card">
                     <div class="card-header">
                         <a class="btn btn-primary" href="{{ route('settinglantai.create') }}">Tambah Data Lantai +</a>
+                         <!-- Input Search -->
+                        <div class="input-group w-25">
+                            <span class="input-group-text">Search</span>
+                            <input type="text" id="search-input" class="form-control" placeholder="Cari Lantai..." onkeyup="searchLantai()">
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-bordered">
@@ -48,6 +53,10 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- Ini adalah elemen yang akan muncul jika tidak ada data yang ditemukan -->
+                                <tr id="no-data" style="display: none;">
+                                    <td colspan="4" class="text-center">No data result.</td>
+                                </tr>
                                 @foreach ($lantais as $data)
                                     <tr>
                                         <td>
@@ -113,4 +122,37 @@
 </body>
 <!-- END: Body-->
 
+<script>
+    function searchLantai() {
+        // Ambil input pencarian
+        let input = document.getElementById('search-input').value.toLowerCase();
+        
+        // Ambil semua baris data lantai
+        let rows = document.querySelectorAll('tbody tr:not(#no-data)');
+        let noData = document.getElementById('no-data');
+        let found = false; // Penanda untuk apakah ada data yang sesuai
+
+        rows.forEach(row => {
+            // Ambil teks dari beberapa kolom (Lantai, Gedung, Deskripsi)
+            let lantai = row.querySelector('td:nth-child(1)').innerText.toLowerCase();
+            let gedung = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
+            let deskripsi = row.querySelector('td:nth-child(3)').innerText.toLowerCase();
+
+            // Cek apakah input ada di salah satu kolom
+            if (lantai.includes(input) || gedung.includes(input) || deskripsi.includes(input)) {
+                row.style.display = ''; // Tampilkan baris
+                found = true; // Ada data yang sesuai
+            } else {
+                row.style.display = 'none'; // Sembunyikan baris
+            }
+        });
+
+        // Tampilkan atau sembunyikan pesan "No data result"
+        if (found) {
+            noData.style.display = 'none'; // Sembunyikan pesan
+        } else {
+            noData.style.display = ''; // Tampilkan pesan
+        }
+    }
+</script>
 </html>

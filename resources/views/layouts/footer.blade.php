@@ -40,6 +40,7 @@
  <!-- BEGIN: Page JS-->
  <script src="{{ asset('app-assets/js/scripts/pages/app-user-list.min.js') }}"></script>
  <script src="{{ asset('app-assets/js/scripts/forms/form-select2.min.js') }}"></script>
+ 
 
  <!-- END: Page JS-->
 

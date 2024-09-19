@@ -42,6 +42,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Route::post('change_password', [AuthController::class, 'change_password']);
     Route::post('device/updateSuhu', [DeviceController::class, 'updateSuhu']);
     Route::get('device/{id}', [DeviceController::class, 'show']);
+    Route::get('device/{mac_address}/mac_address', [DeviceController::class, 'getMacAddress']);
+    Route::post('device/{id}/status', [DeviceController::class, 'updateStatus']);
+    Route::get('perusahaan/{id}', [PerusahaanController::class, 'show']);
+    Route::get('perusahaan', [PerusahaanController::class, 'index']);
+    Route::get('perusahaan_pemagang/{id}', [PerusahaanController::class, 'show_pemagang']);
     Route::post('device/{id}/status', [DeviceController::class, 'updateStatus']);
     Route::post('device/{id}/statusQr', [DeviceController::class, 'updateStatusQr']);
     Route::post('device/update_qr_code', [DeviceController::class, 'updateQrCode']);
@@ -68,7 +73,7 @@ Route::group(['middleware' => 'auth:sanctum', 'isAdmin', 'prefix' => 'admin'], f
     Route::post('device/{id}/suhurange', [DeviceController::class, 'updateSuhuRange']);
     Route::post('device/{id}/ruangan', [DeviceController::class, 'updateRuangan']);
     Route::get('device/{mac_address}/mac_address', [DeviceController::class, 'getMacAddress']);
-    
+
     // Route::resource('setting_roles', SettingRolesController::class);
     Route::resource('perusahaan', PerusahaanController::class);
     Route::resource('gedung', GedungController::class);
@@ -110,7 +115,6 @@ Route::prefix('esp')->group(function () {
 
 //test
 Route::get('status_ac', [DeviceController::class, 'get_status_ac']);
-
 
 // Untuk reset password by id
 Route::post('/user/reset-password/{id}', [UsersController::class, 'resetPassword']);

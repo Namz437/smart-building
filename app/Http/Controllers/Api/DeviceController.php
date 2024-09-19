@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\AksesRoles;
 use App\Models\Device;
 use App\Models\History;
 use App\Models\KodeKontrol;
@@ -193,7 +192,7 @@ class DeviceController extends Controller
             // Validasi input
             $validator = Validator::make($request->all(), [
                 'status' => 'required',
-                'perusahaan_id' => 'required|exists:perusahaan,id',
+                'perusahaan_id' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -219,16 +218,16 @@ class DeviceController extends Controller
             }
 
             // Pengecekan Akses
-            $akses = AksesRoles::whereIn('roles_id', $user->roles_id)
-                ->where('ruangan_id', $device->ruangan_id)
-                ->first();
+            // $akses = AksesRoles::whereIn('roles_id', $user->roles_id)
+            //     ->where('ruangan_id', $device->ruangan_id)
+            //     ->first();
 
-            if (!$akses) {
-                return response()->json([
-                    'message' => 'Akses tidak diterima',
-                    // 'akses_data' => 'Tidak ada akses yang ditemukan untuk ruangan ini'
-                ], 403);
-            }
+            // if (!$akses) {
+            //     return response()->json([
+            //         'message' => 'Akses tidak diterima',
+            //         // 'akses_data' => 'Tidak ada akses yang ditemukan untuk ruangan ini'
+            //     ], 403);
+            // }
 
             // Update status device
             $device->update(['status' => $request->status]);
@@ -453,16 +452,16 @@ class DeviceController extends Controller
             }
 
             // Pengecekan Akses
-            $akses = AksesRoles::whereIn('roles_id', $user->roles_id)
-                ->where('ruangan_id', $device->ruangan_id)
-                ->first();
+            // $akses = AksesRoles::whereIn('roles_id', $user->roles_id)
+            //     ->where('ruangan_id', $device->ruangan_id)
+            //     ->first();
 
-            if (!$akses) {
-                return response()->json([
-                    'message' => 'Akses tidak diterima',
-                    // 'akses_data' => 'Tidak ada akses yang ditemukan untuk ruangan ini'
-                ], 403);
-            }
+            // if (!$akses) {
+            //     return response()->json([
+            //         'message' => 'Akses tidak diterima',
+            //         // 'akses_data' => 'Tidak ada akses yang ditemukan untuk ruangan ini'
+            //     ], 403);
+            // }
             // Temukan device berdasarkan id
 
             $index = 0;
@@ -584,16 +583,16 @@ class DeviceController extends Controller
         }
 
         // Pengecekan Akses
-        $akses = AksesRoles::whereIn('roles_id', $user->roles_id)
-            ->where('ruangan_id', $device->ruangan_id)
-            ->first();
+        // $akses = AksesRoles::whereIn('roles_id', $user->roles_id)
+        //     ->where('ruangan_id', $device->ruangan_id)
+        //     ->first();
 
-        if (!$akses) {
-            return response()->json([
-                'message' => 'Akses Ditolak',
-                // 'akses_data' => 'Tidak ada akses yang ditemukan untuk ruangan ini'
-            ], 403);
-        }
+        // if (!$akses) {
+        //     return response()->json([
+        //         'message' => 'Akses Ditolak',
+        //         // 'akses_data' => 'Tidak ada akses yang ditemukan untuk ruangan ini'
+        //     ], 403);
+        // }
 
         // Deskripsi
         $deskripsi = "Waktu update: " . Carbon::now()->toDateTimeString() . ", Waktu masuk history: " . Carbon::now()->toDateTimeString();

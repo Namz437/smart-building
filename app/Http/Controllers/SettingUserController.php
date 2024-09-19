@@ -69,7 +69,7 @@ class SettingUserController extends Controller
             'no_id' => 'required|integer|unique:users',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'password' => 'required|string|min:6|confirmed',
+            // 'password' => 'required|string|min:6|confirmed',
             'roles_id' => 'required',
             'rfid' => 'required',
             'perusahaan_id' => 'required',
@@ -79,7 +79,6 @@ class SettingUserController extends Controller
             return redirect()->route('settingusers.index')->with('error', 'User tidak ditemukan');
         }
 
-
         // Ambil data user yang akan diupdate
         $user = User::find($id);
 
@@ -87,7 +86,7 @@ class SettingUserController extends Controller
             'no_id' => request('no_id'),
             'name' => request('name'),
             'email' => request('email'),
-            'password' => bcrypt(request('password')),
+            'password' => bcrypt(request('no_id')),
             'roles_id' => request('roles_id'),
             'rfid' => request('rfid'),
             'perusahaan_id' => request('perusahaan_id'),
@@ -105,30 +104,30 @@ class SettingUserController extends Controller
     }
 
     public function resetPassword($id)
-{
-    $user = User::find($id);
+    {
+        $user = User::find($id);
 
-    if (!$user) {
-        return redirect()->route('settingusers.index')->with('error', 'User tidak ditemukan');
+        if (!$user) {
+            return redirect()->route('settingusers.index')->with('error', 'User tidak ditemukan');
+        }
+
+        // Generate a random password
+        $newPassword = Str::random(12); // You can adjust the length as needed
+
+        // Hash the new password
+        $hashedPassword = bcrypt($newPassword);
+
+        // Reset password to the generated random value
+        $user->password = $hashedPassword;
+
+        // Store the hashed password in a separate column for future checks
+        $user->reset_password_hash = $hashedPassword;
+
+        // Set flag indicating the password has been reset
+        $user->is_password_reset = true;
+
+        $user->save();
+
+        return redirect()->route('settingusers.index')->with('success', 'Password untuk user ' . $user->name . ' berhasil direset ke "' . $newPassword . '"');
     }
-
-    // Generate a random password
-    $newPassword = Str::random(12); // You can adjust the length as needed
-
-    // Hash the new password
-    $hashedPassword = bcrypt($newPassword);
-
-    // Reset password to the generated random value
-    $user->password = $hashedPassword;
-
-    // Store the hashed password in a separate column for future checks
-    $user->reset_password_hash = $hashedPassword;
-
-    // Set flag indicating the password has been reset
-    $user->is_password_reset = true;
-
-    $user->save();
-
-    return redirect()->route('settingusers.index')->with('success', 'Password untuk user ' . $user->name . ' berhasil direset ke "' . $newPassword . '"');
-}
 }

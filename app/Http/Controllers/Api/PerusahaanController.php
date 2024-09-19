@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use Exception;
+use App\Http\Controllers\Controller;
 use App\Models\Perusahaan;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
@@ -93,39 +93,39 @@ class PerusahaanController extends Controller
     public function show($id)
     {
         try {
-           $history1 = DB::table('perusahaan')
-            ->where('perusahaan.id', $id)
-            ->join('gedung', 'perusahaan.id', '=', 'gedung.perusahaan_id')
-            ->join('lantai', 'gedung.id', '=', 'lantai.gedung_id')
-            ->join('ruangan', 'lantai.id', '=', 'ruangan.lantai_id')
-            ->join('device', 'ruangan.id', '=', 'device.ruangan_id')
-            ->join('history', 'device.id', '=', 'history.device_id')
-            ->where('history.created_at', '>=', Carbon::now()->subMonths(6))
-            ->where('history.status', 0)
-            ->select(
-                DB::raw('YEAR(history.created_at) as year'),
-                DB::raw('MONTH(history.created_at) as month'),
-                DB::raw('SUM(history.harga) as total_harga'),
-                DB::raw('SUM(history.waktu) as total_waktu'),
-                DB::raw('COUNT(DISTINCT history.id) as jumlah_entri') // Count distinct history entries
-            )
-            ->groupBy(DB::raw('YEAR(history.created_at), MONTH(history.created_at)'));
+            $history1 = DB::table('perusahaan')
+                ->where('perusahaan.id', $id)
+                ->join('gedung', 'perusahaan.id', '=', 'gedung.perusahaan_id')
+                ->join('lantai', 'gedung.id', '=', 'lantai.gedung_id')
+                ->join('ruangan', 'lantai.id', '=', 'ruangan.lantai_id')
+                ->join('device', 'ruangan.id', '=', 'device.ruangan_id')
+                ->join('history', 'device.id', '=', 'history.device_id')
+                ->where('history.created_at', '>=', Carbon::now()->subMonths(6))
+                ->where('history.status', 0)
+                ->select(
+                    DB::raw('YEAR(history.created_at) as year'),
+                    DB::raw('MONTH(history.created_at) as month'),
+                    DB::raw('SUM(history.harga) as total_harga'),
+                    DB::raw('SUM(history.waktu) as total_waktu'),
+                    DB::raw('COUNT(DISTINCT history.id) as jumlah_entri') // Count distinct history entries
+                )
+                ->groupBy(DB::raw('YEAR(history.created_at), MONTH(history.created_at)'));
 
             $history2 = DB::table('perusahaan')
-            ->where('perusahaan.id', $id)
-            ->join('ruangan', 'perusahaan.id', '=', 'ruangan.perusahaan_id')
-            ->join('device', 'ruangan.id', '=', 'device.ruangan_id')
-            ->join('history', 'device.id', '=', 'history.device_id')
-            ->where('history.created_at', '>=', Carbon::now()->subMonths(6))
-            ->where('history.status', 0)
-            ->select(
-                DB::raw('YEAR(history.created_at) as year'),
-                DB::raw('MONTH(history.created_at) as month'),
-                DB::raw('SUM(history.harga) as total_harga'),
-                DB::raw('SUM(history.waktu) as total_waktu'),
-                DB::raw('COUNT(DISTINCT history.id) as jumlah_entri') // Count distinct history entries
-            )
-            ->groupBy(DB::raw('YEAR(history.created_at), MONTH(history.created_at)'));
+                ->where('perusahaan.id', $id)
+                ->join('ruangan', 'perusahaan.id', '=', 'ruangan.perusahaan_id')
+                ->join('device', 'ruangan.id', '=', 'device.ruangan_id')
+                ->join('history', 'device.id', '=', 'history.device_id')
+                ->where('history.created_at', '>=', Carbon::now()->subMonths(6))
+                ->where('history.status', 0)
+                ->select(
+                    DB::raw('YEAR(history.created_at) as year'),
+                    DB::raw('MONTH(history.created_at) as month'),
+                    DB::raw('SUM(history.harga) as total_harga'),
+                    DB::raw('SUM(history.waktu) as total_waktu'),
+                    DB::raw('COUNT(DISTINCT history.id) as jumlah_entri') // Count distinct history entries
+                )
+                ->groupBy(DB::raw('YEAR(history.created_at), MONTH(history.created_at)'));
 
             $unionQuery = DB::table(DB::raw("({$history1->toSql()} UNION ALL {$history2->toSql()}) as combined"))
                 ->mergeBindings($history1)
@@ -133,7 +133,6 @@ class PerusahaanController extends Controller
                 ->selectRaw('year, month, SUM(total_harga) as total_harga, SUM(total_waktu) as total_waktu, SUM(jumlah_entri) as jumlah_entri')
                 ->groupBy('year', 'month')
                 ->get();
-
 
             $data = Perusahaan::where('id', $id)
                 ->with([
@@ -147,11 +146,53 @@ class PerusahaanController extends Controller
                         $query->whereDate('created_at', Carbon::today());
                     },
                     'ruangan.devices.merk.kodekontrol',
-                
+
                 ])
                 ->first();
 
             $data['chart_data'] = $unionQuery;
+
+            if (!$data) {
+                throw new Exception('Data not found');
+            }
+
+            $response = [
+                'success' => true,
+                'data' => $data,
+                'message' => 'Data perusahaan tersedia',
+            ];
+            return response()->json($response, 200);
+        } catch (Exception $th) {
+            $response = [
+                'success' => false,
+                'message' => 'Data perusahaan tidak tersedia',
+            ];
+            return response()->json($response, 500);
+        }
+    }
+    public function show_pemagang($id)
+    {
+        try {
+
+            $data1 = DB::table('device')
+                ->join('ruangan', 'ruangan.id', '=', 'device.ruangan_id')
+                ->join('lantai', 'lantai.id', '=', 'ruangan.lantai_id')
+                ->join('gedung', 'gedung.id', '=', 'lantai.gedung_id')
+                ->join('perusahaan', 'perusahaan.id', '=', 'gedung.perusahaan_id')
+                ->where('perusahaan.id', $id)
+                ->where('device.jenis_device_id', 1)
+                ->select(
+                    'device.*', 'ruangan.nama_ruangan', 'lantai.nama as nama_lantai', 'gedung.nama_gedung', 'perusahaan.nama as nama_perusahaan', 'perusahaan.id as perusahaan_id'
+                )->get();
+            $data2 = DB::table('device')
+                ->join('ruangan', 'ruangan.id', '=', 'device.ruangan_id')
+                ->join('perusahaan', 'perusahaan.id', '=', 'ruangan.perusahaan_id')
+                ->where('perusahaan.id', $id)
+                ->where('device.jenis_device_id', 1)
+                ->select(
+                    'device.*', 'ruangan.nama_ruangan', 'perusahaan.nama as nama_perusahaan', 'perusahaan.id as perusahaan_id'
+                )->get();
+            $data = $data1->merge($data2);
 
             if (!$data) {
                 throw new Exception('Data not found');

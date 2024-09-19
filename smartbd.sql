@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 30 Agu 2024 pada 07.36
+-- Waktu pembuatan: 19 Sep 2024 pada 09.59
 -- Versi server: 8.0.30
 -- Versi PHP: 8.2.19
 
@@ -48,7 +48,8 @@ INSERT INTO `akses_roles` (`id`, `roles_id`, `ruangan_id`, `created_at`, `update
 (14, 9, '[8,9,12,15,16,17,18]', '2024-08-25 18:30:37', '2024-08-29 03:13:42'),
 (15, 10, '[8,9,14,15,16,17,18,23]', '2024-08-25 18:32:12', '2024-08-29 03:13:48'),
 (16, 11, '[8,9,15,16,17,18]', '2024-08-25 18:33:02', '2024-08-29 03:13:54'),
-(28, 22, '[8,21]', '2024-08-29 03:30:06', '2024-08-29 03:30:35');
+(28, 22, '[8,21]', '2024-08-29 03:30:06', '2024-08-29 03:30:35'),
+(30, 24, '[1,2]', '2024-09-01 19:20:52', '2024-09-01 19:23:14');
 
 -- --------------------------------------------------------
 
@@ -135,7 +136,7 @@ CREATE TABLE `device` (
 INSERT INTO `device` (`id`, `nama_device`, `qr_code`, `url`, `jenis_device_id`, `ruangan_id`, `merk_id`, `suhu`, `status`, `min_suhu`, `max_suhu`, `watt`, `mac_address`, `created_at`, `updated_at`) VALUES
 (1, 'Lamp', 1, '/device/1', 2, 6, 3, 0, 0, 0, 0, 100, 'FC:B4:67:F0:2D:40', '2024-07-04 00:21:30', '2024-08-12 19:20:29'),
 (2, 'Lamp 2', 1, '/device/2', 2, 1, 3, 0, 0, 0, 0, 100, 'C8:2E:18:F1:6D:55', '2024-07-04 00:21:54', '2024-07-15 07:38:07'),
-(3, 'Door', 0, '/device/3', 1, 6, 3, 0, 1, 0, 0, 10, '08:B6:1F:B5:F7:4C', '2024-07-04 00:23:27', '2024-08-13 01:35:42'),
+(3, 'Door', 0, '/device/3', 1, 6, 3, 0, 2, 0, 0, 10, '08:B6:1F:B5:F7:4C', '2024-07-04 00:23:27', '2024-09-02 02:12:32'),
 (4, 'AC', NULL, '/device/4', 4, 6, 1, 22, 1, 10, 20, 500, 'FC:B4:67:F1:CC:E8', '2024-07-04 00:23:42', '2024-08-12 19:21:42'),
 (5, 'Suhu', NULL, 'device/6', 5, 6, 3, 27, 0, 0, 0, 2, '08:B6:1F:B6:F5:38', '2024-07-10 08:48:51', '2024-08-06 03:11:53'),
 (6, 'Fan', 0, '/device/12', 3, 6, 2, 0, 0, 10, 30, 0, 'C8:2E:18:F0:15:9C', '2024-07-10 08:58:27', '2024-08-12 19:20:34');
@@ -4224,7 +4225,7 @@ CREATE TABLE `lantai` (
 INSERT INTO `lantai` (`id`, `nama`, `gedung_id`, `deskripsi`, `created_at`, `updated_at`) VALUES
 (1, 'Lantai 1', 1, 'Lantai 1 Politeknik Takumi', '2024-07-03 12:24:08', '2024-07-03 12:24:08'),
 (2, 'Lantai 2', 1, 'Lantai 2 Politeknik Takumi', '2024-07-03 12:24:14', '2024-07-03 12:24:14'),
-(3, 'Lantai 3', 1, 'Lantai 3 Politeknik Takumi', '2024-07-03 12:40:41', '2024-07-03 12:40:41');
+(3, 'Lantai 3', 1, 'Lantai 3 Politeknik Takumi', '2024-07-03 12:40:41', '2024-09-02 20:50:55');
 
 -- --------------------------------------------------------
 
@@ -4324,30 +4325,17 @@ CREATE TABLE `personal_access_tokens` (
 --
 
 INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `name`, `token`, `abilities`, `last_used_at`, `expires_at`, `created_at`, `updated_at`) VALUES
-(6, 'App\\Models\\User', 1, 'auth_token', 'f283a2a42cbea60dab97ab3ef124afe698a2aa3bf66c8c58befa4ee1a8bf7f80', '[\"*\"]', '2024-07-04 06:14:25', NULL, '2024-07-04 01:37:12', '2024-07-04 06:14:25'),
-(7, 'App\\Models\\User', 1, 'auth_token', '5a87bdd8ec35a9c50e0afc415a987949a977442e62d45de127e4693dbd83d392', '[\"*\"]', NULL, NULL, '2024-07-04 06:27:19', '2024-07-04 06:27:19'),
-(8, 'App\\Models\\User', 1, 'auth_token', '1eb42f55069863f80b98699298b84f2814b8b7587549bee47f961554a055b9c8', '[\"*\"]', NULL, NULL, '2024-07-04 06:47:43', '2024-07-04 06:47:43'),
-(9, 'App\\Models\\User', 1, 'auth_token', 'e6642ae484e05349480d7c1e49f393a81bb930536338d872c14355cddb6965ef', '[\"*\"]', NULL, NULL, '2024-07-04 07:34:36', '2024-07-04 07:34:36'),
-(10, 'App\\Models\\User', 1, 'auth_token', 'f03a72c71dc0e70abfac9654246a69fde0da13a43709ff5f4f9da942d966be4c', '[\"*\"]', '2024-07-05 00:09:51', NULL, '2024-07-04 07:49:26', '2024-07-05 00:09:51'),
-(11, 'App\\Models\\User', 1, 'auth_token', '81f44341c8c096a792c3728f1c20c5be9a0e0f75c4f60a4eb915af946fc96ae6', '[\"*\"]', '2024-07-04 08:51:32', NULL, '2024-07-04 08:25:08', '2024-07-04 08:51:32'),
-(12, 'App\\Models\\User', 1, 'auth_token', '59f627ae5e93566c75572ab8a4a4ef98ff4476150c43dd5143fb8da807ed824e', '[\"*\"]', '2024-08-13 18:35:52', NULL, '2024-07-05 04:32:20', '2024-08-13 18:35:52'),
-(13, 'App\\Models\\User', 1, 'auth_token', 'a869e2b1ddf9202b074aa2f6a66db77d8e20d6cb758a0632ce552eac2af28176', '[\"*\"]', '2024-07-09 01:18:06', NULL, '2024-07-06 06:39:00', '2024-07-09 01:18:06'),
-(14, 'App\\Models\\User', 1, 'auth_token', '6ad357ffd01f51d5d05a79cf30d5c59e72d58ec1532848f2d5be0bb52bea916c', '[\"*\"]', '2024-07-06 06:56:02', NULL, '2024-07-06 06:41:10', '2024-07-06 06:56:02'),
-(15, 'App\\Models\\User', 1, 'auth_token', 'ab9323dcbd6b91bea8541bffb70bf59b5cf02b9eb9a4f1729e8fdb5ad43f5c93', '[\"*\"]', '2024-08-13 18:35:52', NULL, '2024-07-08 07:48:13', '2024-08-13 18:35:52'),
-(16, 'App\\Models\\User', 1, 'auth_token', 'a24b781aa0e93f6cfa3fdefa00bb7c1231bf5b2bee17a0e25a57cfc01069dcc1', '[\"*\"]', '2024-07-20 11:18:16', NULL, '2024-07-09 00:01:02', '2024-07-20 11:18:16'),
-(17, 'App\\Models\\User', 1, 'auth_token', 'b8e0bb33675d625f3ffb159fd4b2d1960b037ee9940f325bb5cfc426c5985802', '[\"*\"]', '2024-07-09 02:12:53', NULL, '2024-07-09 01:56:59', '2024-07-09 02:12:53'),
-(18, 'App\\Models\\User', 1, 'auth_token', 'c2af3c191453aeafb69a8643207b99bc478355a83cf7b559bfb1bc0dacac95ab', '[\"*\"]', '2024-08-13 03:18:35', NULL, '2024-07-09 03:30:36', '2024-08-13 03:18:35'),
-(19, 'App\\Models\\User', 1, 'auth_token', '09979a869da0794159fb671d34e9ad0ab13e2aa07ddf7854f8ce3b02feb3d57b', '[\"*\"]', '2024-07-10 02:30:16', NULL, '2024-07-09 03:46:03', '2024-07-10 02:30:16'),
-(20, 'App\\Models\\User', 1, 'auth_token', '872aca7ea6815077ed479186337169c900a2cce89d15664ae155c251ab392c3e', '[\"*\"]', '2024-07-10 02:29:29', NULL, '2024-07-09 03:49:59', '2024-07-10 02:29:29'),
-(21, 'App\\Models\\User', 1, 'auth_token', '3a20d995be2bebbcbb60ff7ec185cf4c07816c7c8044bc188037d3bb94accdab', '[\"*\"]', '2024-07-10 23:14:14', NULL, '2024-07-09 04:31:56', '2024-07-10 23:14:14'),
-(22, 'App\\Models\\User', 1, 'auth_token', 'ac009b282c200d8095e7eaa682012da495cbb22c35d8747602e5fc2695d0edae', '[\"*\"]', '2024-07-11 07:44:34', NULL, '2024-07-09 04:56:39', '2024-07-11 07:44:34'),
-(23, 'App\\Models\\User', 1, 'auth_token', '5fb7a51fc9a0575bccdfba6bebffea300b22f67c7e76f0c80c6673267a318f7f', '[\"*\"]', '2024-08-12 19:10:10', NULL, '2024-07-10 00:16:04', '2024-08-12 19:10:10'),
-(24, 'App\\Models\\User', 1, 'auth_token', '62f589732c2a65e594956b4052eb1d45f85d833d666f2432e5988c765e9eb0c2', '[\"*\"]', NULL, NULL, '2024-07-11 00:47:08', '2024-07-11 00:47:08'),
-(25, 'App\\Models\\User', 1, 'auth_token', '487cbf19a9876ff838e98f214c9b093b9ac598bff6df987edc5e6660c94a4b02', '[\"*\"]', '2024-07-16 01:33:05', NULL, '2024-07-15 05:48:06', '2024-07-16 01:33:05'),
-(26, 'App\\Models\\User', 1, 'auth_token', '0480a3895b55c9282d2b113cc9960f0c5e7324431aa778b8e208518f36a1ae08', '[\"*\"]', '2024-07-22 22:19:57', NULL, '2024-07-15 05:49:24', '2024-07-22 22:19:57'),
-(27, 'App\\Models\\User', 1, 'auth_token', 'e7e2196b08e2972a832b784b2ba194b58153232bb9d821477ab65dc3d629a2c1', '[\"*\"]', '2024-07-16 04:53:43', NULL, '2024-07-16 04:48:58', '2024-07-16 04:53:43'),
-(28, 'App\\Models\\User', 1, 'auth_token', '0974865330d777bb191d3460d1bc26b0eb6d4452c32a44dc5aea6e6785bca433', '[\"*\"]', '2024-07-16 08:03:45', NULL, '2024-07-16 08:03:09', '2024-07-16 08:03:45'),
-(29, 'App\\Models\\User', 1, 'auth_token', 'b2d0fcdb63035d504c19a10462def2b145891a3e120463635c3f6c19862fe2fa', '[\"*\"]', '2024-07-27 05:33:34', NULL, '2024-07-18 04:55:37', '2024-07-27 05:33:34');
+(30, 'App\\Models\\Device', 1, 'auth_token', '665eecb82746995aaee4203487e70cf25aac075b956875baa46e4d3a1d12436e', '[\"*\"]', NULL, NULL, '2024-09-10 01:25:34', '2024-09-10 01:25:34'),
+(31, 'App\\Models\\Device', 1, 'auth_token', 'a1ffaa14c9f4b9facf7c24533d8cada9ab5917bdba6a1a9cf54877c082bd4ca6', '[\"*\"]', NULL, NULL, '2024-09-10 02:40:28', '2024-09-10 02:40:28'),
+(32, 'App\\Models\\Device', 1, 'auth_token', 'a1fbb84bb69047c042153c792199805b6907ecd71a37c2ce18947c32faf53388', '[\"*\"]', NULL, NULL, '2024-09-11 02:47:05', '2024-09-11 02:47:05'),
+(33, 'App\\Models\\Device', 1, 'auth_token', '6e18b12d082bf705dbdb30d93736b2d0b33d397eecd3ace3d781bd40f24f11e8', '[\"*\"]', NULL, NULL, '2024-09-11 02:49:10', '2024-09-11 02:49:10'),
+(34, 'App\\Models\\Device', 1, 'auth_token', '51ef4b7d8985235e69ea47afa77d7ec39eebf1820bd4260e877701ede24035ea', '[\"*\"]', NULL, NULL, '2024-09-11 02:49:53', '2024-09-11 02:49:53'),
+(35, 'App\\Models\\Device', 1, 'auth_token', '2cf4f29ae2ae073d4d21d433f88446084cfb8d48e755719258cd00d20372bce1', '[\"*\"]', NULL, NULL, '2024-09-11 02:50:49', '2024-09-11 02:50:49'),
+(36, 'App\\Models\\User', 1, 'auth_token', '33f83a13a16e38d204a67a877d5961b86e4436980fd52c1283d09226968fff06', '[\"*\"]', NULL, NULL, '2024-09-11 02:52:18', '2024-09-11 02:52:18'),
+(37, 'App\\Models\\Device', 1, 'auth_token', 'e652b011444c1fd556a64794a1747eb8f74dfedbbb4bce802f3fc25b907874da', '[\"*\"]', NULL, NULL, '2024-09-11 03:32:45', '2024-09-11 03:32:45'),
+(38, 'App\\Models\\User', 1, 'auth_token', 'faf90a29d57250366721cd06c69353101433da1a75b030ff36678e5fd4a847cb', '[\"*\"]', NULL, NULL, '2024-09-12 16:13:49', '2024-09-12 16:13:49'),
+(39, 'App\\Models\\User', 1, 'auth_token', 'b7f44a0160758dd2df86997741d465f084cccaba883694d7c884bb3576144cf3', '[\"*\"]', NULL, NULL, '2024-09-12 16:14:20', '2024-09-12 16:14:20'),
+(40, 'App\\Models\\User', 1, 'auth_token', 'aa612bd9a49717a5b9bee00ee0f57c854d027d86839f4d9e091a82ff34efacf6', '[\"*\"]', NULL, NULL, '2024-09-12 16:20:04', '2024-09-12 16:20:04');
 
 -- --------------------------------------------------------
 
@@ -4363,6 +4351,9 @@ CREATE TABLE `perusahaan` (
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `kwh` int NOT NULL,
   `harga_kwh` int NOT NULL,
+  `latitude` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `longitude` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pin` varchar(6) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '123456',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4371,9 +4362,9 @@ CREATE TABLE `perusahaan` (
 -- Dumping data untuk tabel `perusahaan`
 --
 
-INSERT INTO `perusahaan` (`id`, `nama`, `deskripsi`, `lokasi`, `image`, `kwh`, `harga_kwh`, `created_at`, `updated_at`) VALUES
-(1, 'Politeknik Takumi', 'Kampus bernuansa jepang pertama dicikarang', 'Jl Raya Kodam', '1724387195_logo_Takumi.png', 6600, 1700, '2024-07-03 11:28:42', '2024-08-22 21:26:35'),
-(2, 'PT Minori', 'Lembaga pencari kerja / Pemagang yang dikirimkan ke jepang', 'Jl Raya Cikarang - Cibarusah', '1724387208_logo_minori.png', 6600, 1700, '2024-07-03 11:34:50', '2024-08-22 21:26:48');
+INSERT INTO `perusahaan` (`id`, `nama`, `deskripsi`, `lokasi`, `image`, `kwh`, `harga_kwh`, `latitude`, `longitude`, `pin`, `created_at`, `updated_at`) VALUES
+(1, 'Politeknik Takumi', 'Kampus bernuansa jepang pertama dicikarang', 'Jl Raya Kodam', '1724387195_logo_Takumi.png', 6600, 1700, '', '', '111111', '2024-07-03 11:28:42', '2024-08-22 21:26:35'),
+(2, 'PT Minori', 'Lembaga pencari kerja / Pemagang yang dikirimkan ke jepang', 'Jl Raya Cikarang - Cibarusah', '1724387208_logo_minori.png', 6600, 1700, '', '', '', '2024-07-03 11:34:50', '2024-08-22 21:26:48');
 
 -- --------------------------------------------------------
 
@@ -4409,6 +4400,7 @@ INSERT INTO `rfid` (`id`, `users_id`, `rfid`, `created_at`, `updated_at`) VALUES
 CREATE TABLE `roles` (
   `id` bigint UNSIGNED NOT NULL,
   `nama_role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `access` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4417,18 +4409,19 @@ CREATE TABLE `roles` (
 -- Dumping data untuk tabel `roles`
 --
 
-INSERT INTO `roles` (`id`, `nama_role`, `created_at`, `updated_at`) VALUES
-(1, 'Admin', '2024-07-03 10:37:37', '2024-07-03 10:37:37'),
-(2, 'Mahasiswa', '2024-07-03 10:37:44', '2024-07-03 10:37:44'),
-(3, 'Dosen', '2024-07-03 10:37:48', '2024-07-03 10:37:48'),
-(4, 'Management', NULL, NULL),
-(6, 'Pemagang Wanita', NULL, NULL),
-(7, 'RCR', NULL, NULL),
-(8, 'GA', NULL, NULL),
-(9, 'HR-KEUANGAN', NULL, NULL),
-(10, 'IT', NULL, NULL),
-(11, 'Staff Umum', NULL, NULL),
-(22, 'Pemagang Pria', '2024-08-29 03:30:06', '2024-08-29 03:30:06');
+INSERT INTO `roles` (`id`, `nama_role`, `access`, `created_at`, `updated_at`) VALUES
+(1, 'Admin', 'Menu Kontrol', '2024-07-03 10:37:37', '2024-07-03 10:37:37'),
+(2, 'Mahasiswa', '', '2024-07-03 10:37:44', '2024-07-03 10:37:44'),
+(3, 'Dosen', '', '2024-07-03 10:37:48', '2024-07-03 10:37:48'),
+(4, 'Management', '', NULL, NULL),
+(6, 'Pemagang Wanita', '', NULL, NULL),
+(7, 'RCR', '', NULL, NULL),
+(8, 'GA', '', NULL, NULL),
+(9, 'HR-KEUANGAN', '', NULL, NULL),
+(10, 'IT', '', NULL, NULL),
+(11, 'Staff Umum', '', NULL, NULL),
+(22, 'Pemagang Pria', '', '2024-08-29 03:30:06', '2024-08-29 03:30:06'),
+(24, 'recek', '', '2024-09-01 19:20:52', '2024-09-01 19:20:52');
 
 -- --------------------------------------------------------
 
@@ -4452,12 +4445,12 @@ CREATE TABLE `ruangan` (
 --
 
 INSERT INTO `ruangan` (`id`, `perusahaan_id`, `lantai_id`, `nama_ruangan`, `deskripsi`, `ukuran`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, 'Parkiran', 'Parkiran Politeknik Takumi', '10x10', '2024-07-03 12:31:53', '2024-07-03 12:31:53'),
+(1, 1, NULL, 'Parkiran', 'Parkiran Politeknik Takumi', '10x10', '2024-07-03 12:31:53', '2024-09-02 20:54:38'),
 (2, 1, NULL, 'Taman', 'Taman Politeknik Takumi', '10x10', '2024-07-03 12:32:09', '2024-07-03 12:32:09'),
-(3, NULL, 1, 'Ruang Aula', 'Aula Politeknik Takumi', '10x10', '2024-07-03 12:32:32', '2024-07-03 12:32:32'),
+(3, 2, 2, 'Ruang Aula', 'Aula Politeknik Takumi', '10x10', '2024-07-03 12:32:32', '2024-09-02 20:35:03'),
 (4, NULL, 1, 'Ruang Admin', 'Admin Politeknik Takumi', '10x10', '2024-07-03 12:32:45', '2024-07-03 12:32:45'),
 (5, NULL, 2, 'Ruang Meeting', 'Meeting room Politeknik Takumi', '10x10', '2024-07-03 12:33:00', '2024-07-03 12:33:00'),
-(6, NULL, 3, 'Ruang 304', 'Classroom Politeknik Takumi', '10x10', '2024-07-03 12:33:10', '2024-07-03 12:33:10'),
+(6, 1, 3, 'Ruang 304', 'Classroom Politeknik Takumi', '10x10', '2024-07-03 12:33:10', '2024-07-03 12:33:10'),
 (7, NULL, 2, 'Studio', 'Studio room Politeknik Takumi', '10x10', '2024-07-03 12:33:27', '2024-07-03 12:33:27'),
 (8, NULL, NULL, 'Pintu Lobby Utama', 'Pintu Lobby Utama', NULL, NULL, NULL),
 (9, NULL, NULL, 'Pintu Utama Jimusho', 'Pintu Utama Jimusho', NULL, NULL, NULL),
@@ -4496,7 +4489,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('bDR90ew3L706FXQnaOncDN1O46yvldVtHj5nvaI1', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiZ0plUkhKcHV3TGp2cHd0NVI3TnVRZHJKM01lZUhMcFdaVExrUlhHdiI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozNDoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3NldHRpbmd1c2VycyI7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjI5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvaGlzdG9yeSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1724931804);
+('7dB5zGCqcFeX1JJzhNFo2xPGaVgnc0OIGlikJuqQ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoidTMxbkVrWkhnd2dmckdVcE9ES1ZDYkVXQlZpcjY0YTdBQnZaTEliciI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1726544009),
+('oXhXi3yLlcUOXHhbK8g0uPVaL2Sizujk7usz2egd', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiV0VWWUd1RGZZeVlsejZNcXlnc0tSYzFvRk52WWxFVlpkb2M3YTlKaiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9oaXN0b3J5Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1726513644);
 
 -- --------------------------------------------------------
 
@@ -4567,7 +4561,7 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `is_password_reset` tinyint(1) NOT NULL DEFAULT '0',
   `reset_password_hash` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `perusahaan_id` bigint DEFAULT NULL,
+  `perusahaan_id` bigint UNSIGNED DEFAULT NULL,
   `rfid` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_update_password` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -4577,7 +4571,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `no_id`, `name`, `email`, `roles_id`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `two_factor_confirmed_at`, `remember_token`, `current_team_id`, `profile_photo_path`, `created_at`, `updated_at`, `is_password_reset`, `reset_password_hash`, `perusahaan_id`, `rfid`, `is_update_password`) VALUES
-(1, 1, 'Admin', 'admin@gmail.com', 1, NULL, '$2y$12$JmhKfMmKzFY42oo9Uh4uSuEn0ds0xRBqirs1MlCwrRyw.tPdofDIy', NULL, NULL, NULL, '80WnLHHgVo5pqSO1VDvjodRRF1cA1A8nkv4Ojhz4gxY4R81iJnWI3CvA58Gv', NULL, NULL, '2024-07-03 10:19:30', '2024-08-29 03:43:28', 0, '', NULL, '187rg8e3r', 0),
+(1, 1, 'Admin', 'admin@gmail.com', 1, NULL, '$2y$12$LIS6dN7BLjhAs9A9KFE8f.UTIWOVy9zxWxe1IXBm.qet.BDwuBDhO', NULL, NULL, NULL, '3NCGOlE684xl2JcJafa6WPHTghGG77kAnVv2StuAPHeISjhmxcRGbjJ7zuCt', NULL, NULL, '2024-07-03 10:19:30', '2024-09-01 18:25:48', 1, '$2y$12$kEaK8HogNdENqLo8M8PYouSapO/UL9VE8j8.srbmyftjbnkdo3TqK', NULL, '187rg8e3r', 0),
 (2, 2, 'Mahasiswa', 'mahasiswa@gmail.com', 1, NULL, '$2y$12$XVLX6EGrw1ZLh3KdEtdH2Otyv7qS.pOs8sohlyi4oRx0kl6O85tiO', NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-03 10:20:08', '2024-08-29 03:25:23', 0, '$2y$12$C3/T9wp/tCfsW1kkkvF.OuU6DIDairdIQ0kp4vDgxHYyqWFFPDDs6', NULL, '2303CCF3CEK', 0),
 (3, 3, 'Dosen', 'Dosen@gmail.com', 6, NULL, '$2y$12$GCiAjJz5ZnnnHST8oVwUqO9huzuK7UK3s8m7R1whQvd8lX2CuIol2', NULL, NULL, NULL, NULL, NULL, NULL, '2024-07-03 10:20:16', '2024-08-29 01:39:44', 0, '', NULL, '2303CCF4CEK', 0),
 (2222, 2793, 'Arsinius Yohanes Kodu', '2793@email.com', 2, NULL, '$2y$12$CqZKmddK/wPj3VmYKLtCvuYKXBdNmWSd2R67E18mJE88YfqJ9See.', NULL, NULL, NULL, 'JaKhFObB2uyx2S7rY8qCPxqDmbzEPoIYfeM87zCMSPHNV00AsxfcpBMwZEef', NULL, NULL, NULL, '2024-08-26 23:50:30', 0, '', NULL, '', 0),
@@ -5785,7 +5779,9 @@ INSERT INTO `users` (`id`, `no_id`, `name`, `email`, `roles_id`, `email_verified
 (3420, 11240801, 'Agus Ginanjar', 'agusginanjar@minori.co.id', 2, NULL, '7c602319ca1da0c118817efb4e02138934ded939', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, '', 0),
 (3421, 11240802, 'Ridwan Kurnia', 'ridwankurnia@minori.co.id', 2, NULL, '842a126fca3afc300de2bb98f947767df97753a4', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, '', 0),
 (3422, 11240803, 'Yusuf Imanudin', 'yusufimanudin@minori.co.id', 2, NULL, '090c96229c463bc535e3f5b1596fd03c0050965b', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, '', 0),
-(3423, 11240804, 'Abdul Hafidz', 'abdulhafidz@minori.co.id', 2, NULL, 'dfb698dbe0e115bd206ffa22a2f95b01c31c6c21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, '', 0);
+(3423, 11240804, 'Abdul Hafidz', 'abdulhafidz@minori.co.id', 2, NULL, 'dfb698dbe0e115bd206ffa22a2f95b01c31c6c21', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, '', NULL, '', 0),
+(3434, 101, 'cek', 'cek@gmail.com', 3, NULL, '$2y$12$Ob7b6rRxVu6nHNYJqQ6jw.Oz6yvk1RGpGMDJBSXT4KyqblwfFUiq2', NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-01 19:03:26', '2024-09-02 21:12:22', 0, NULL, 1, NULL, 0),
+(3435, 101, 'aaaa', 'aaa@gmail.com', 2, NULL, '$2y$12$5nMATpIHQGNCHjhBc8upDedTLJSf7nB691Hk9lTeWJFUzuOScXrJm', NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-08 19:19:56', '2024-09-08 19:19:56', 0, NULL, 1, '11', 0);
 
 --
 -- Indexes for dumped tables
@@ -5972,7 +5968,8 @@ ALTER TABLE `setting_roles`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`),
-  ADD KEY `roles_id` (`roles_id`);
+  ADD KEY `roles_id` (`roles_id`),
+  ADD KEY `perusahaan_id` (`perusahaan_id`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -5982,7 +5979,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `akses_roles`
 --
 ALTER TABLE `akses_roles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `category_device`
@@ -6042,7 +6039,7 @@ ALTER TABLE `kode_kontrol`
 -- AUTO_INCREMENT untuk tabel `lantai`
 --
 ALTER TABLE `lantai`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `merk`
@@ -6060,7 +6057,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT untuk tabel `perusahaan`
@@ -6078,13 +6075,13 @@ ALTER TABLE `rfid`
 -- AUTO_INCREMENT untuk tabel `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `ruangan`
 --
 ALTER TABLE `ruangan`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT untuk tabel `setting_kode_kontrol`
@@ -6102,7 +6099,7 @@ ALTER TABLE `setting_roles`
 -- AUTO_INCREMENT untuk tabel `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3434;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3436;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -6191,7 +6188,8 @@ ALTER TABLE `setting_roles`
 -- Ketidakleluasaan untuk tabel `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`perusahaan_id`) REFERENCES `perusahaan` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

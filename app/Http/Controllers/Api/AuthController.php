@@ -85,9 +85,9 @@ class AuthController extends Controller
         //     }
         // }
 
-         // Ambil access dari tabel roles berdasarkan roles_id user
+        // Ambil access dari tabel roles berdasarkan roles_id user
         $role = Roles::where('id', $user->roles_id)->first();
-    
+
         // Jika role ditemukan, ambil nilai access dari role tersebut
         $access_menu = $role ? $role->access : null;
 
@@ -204,10 +204,10 @@ class AuthController extends Controller
         }
 
         $user->password = bcrypt($request->new_password);
-        
+
         // Reset the flag after the user has successfully changed their password
         $user->is_password_reset = false;
-    
+
         $user->save();
 
         return response()->json([
@@ -215,5 +215,36 @@ class AuthController extends Controller
             'message' => 'Password has been changed successfully.',
         ]);
     }
+    public function change_password(Request $request)
+    {
+        if (!(Hash::check($request->get('current_password'), Auth::user()->password))) {
+            // The passwords matches
+            return response()->json(['success' => false,
+                'message' => 'Your current password does not matches with the password.', 401]);
+        }
 
+        if (strcmp($request->get('current_password'), $request->get('new_password')) == 0) {
+            return response()->json(['success' => false,
+                'message' => 'New Password cannot be same as your current password.', 401]);
+        }
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required|string|min:8',
+            'new_password' => 'required|string|min:8',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors());
+        }
+
+        $user = Auth::user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        // auth()->user()->tokens()->delete();
+
+        return response()
+            ->json(['success' => true,
+                'message' => 'Password has been changed, Thank You.',
+            ]);
+
+    }
 }

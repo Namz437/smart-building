@@ -17,7 +17,7 @@ class Ruangan extends Model
         'nama_ruangan',
         'deskripsi',
         'ukuran',
-        'perusahaan_id'
+        'perusahaan_id',
     ];
     public function lantai()
     {
